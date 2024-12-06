@@ -9,7 +9,7 @@ cat > $start_script << EOT
 #!/bin/bash -e
 
 mkdir -p /run/sshd
-/usr/sbin/sshd -D -e -f /etc/ssh/sshd_config
+/usr/sbin/sshd -Def /etc/ssh/sshd_config
 EOT
 
 chmod 700 $start_script
