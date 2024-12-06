@@ -1,7 +1,8 @@
-#!/bin/bash -e
+#!/bin/bash -x
 
 start_script='/srv/start.sh'
 
 apt-get install -y --no-install-recommends ssh
 echo 'sshd -D -e -f /etc/ssh/sshd_config' > $start_script
 chmod 700 $start_script
+sleep 3600
