@@ -8,7 +8,7 @@ apt-get install -y --no-install-recommends ssh sudo
 cat > $start_script << EOT
 #!/bin/bash -e
 
-mkdir -p /var/run/sshd
+mkdir -p /run/sshd
 /usr/sbin/sshd -D -e -f /etc/ssh/sshd_config
 EOT
 
