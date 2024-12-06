@@ -1,8 +1,9 @@
 #!/bin/bash -e
 
 start_script='/srv/start.sh'
+login_user='project'
 
-apt-get install -y --no-install-recommends ssh
+apt-get install -y --no-install-recommends ssh sudo
 
 cat > $start_script << EOT
 #!/bin/bash -e
@@ -12,3 +13,6 @@ mkdir -p /var/run/sshd
 EOT
 
 chmod 700 $start_script
+
+useradd $login_user --comment 'Project' --home /home/$login_user --shell /bin/bash
+usermod -aG sudo $login_user
