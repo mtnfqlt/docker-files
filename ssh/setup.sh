@@ -16,3 +16,4 @@ chmod 700 $start_script
 
 useradd $login_user --comment 'Project' --home /home/$login_user --shell /bin/bash
 usermod -aG sudo $login_user
+mkdir -p /home/$login_user/.ssh
