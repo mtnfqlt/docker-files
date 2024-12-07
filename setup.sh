@@ -8,13 +8,14 @@ setup_role_list="$4"
 pre_setup_script="./$5"
 post_setup_script="./$6"
 
+echo "$work_dir"
 echo "$port"
 echo "$repo_url"
 echo "$branch"
 echo "$setup_role_list"
 echo "$pre_setup_script"
 echo "$post_setup_script"
-
+exit
 setup() {
   local role="$1"
 
