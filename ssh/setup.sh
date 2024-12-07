@@ -4,7 +4,7 @@ work_dir=$(dirname "$(realpath "$1")")
 #port="$2"
 start_script=$work_dir/start.sh
 #login_user='project'
-
+echo "$start_script"
 apt-get install -y --no-install-recommends ssh sudo
 
 cat > "$start_script" << EOT
