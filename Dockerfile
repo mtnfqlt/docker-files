@@ -1,4 +1,4 @@
-#ARG from expose
+FROM debian:bookworm-slim
 ARG from
 ARG expose
 RUN echo "Base image: $from" && echo "Exposed port: $expose"
