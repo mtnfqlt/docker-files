@@ -1,6 +1,6 @@
-#ARG from
+ARG from
 FROM $from
-ARG from expose
+ARG expose
 EXPOSE $expose
 WORKDIR /srv
 COPY setup.sh ./
