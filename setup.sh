@@ -4,8 +4,8 @@ expose="$1"
 repo_url="$2"
 branch="$3"
 setup_list="$4"
-pre_setup_script=$(echo "$5" | cut -d'/' -f2-)
-post_setup_script=$(echo "$6" | cut -d'/' -f2-)
+pre_setup_script="./$5"
+post_setup_script="./$6"
 
 echo "$expose"
 echo "$repo_url"

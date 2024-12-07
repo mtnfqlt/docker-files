@@ -8,7 +8,7 @@ export DOCKERFILE='Dockerfile'
 
 cd "$work_dir"
 
-for file in Dockerfile setup.sh; do
+for file in $DOCKERFILE setup.sh; do
   curl -sS -H 'Cache-Control: no-cache, no-store' "$REPO_URL/$file?ref=$BRANCH" | \
     jq -r '.content' | \
     base64 -d > $CONTEXT/$file
