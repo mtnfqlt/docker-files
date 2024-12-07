@@ -24,8 +24,7 @@ setup() {
     base64 -d | \
     bash -s "$work_dir" "$port"
 }
-setup ssh
-exit
+
 # Sets debconf to use non-interactive mode for package installation
 echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 apt-get update
