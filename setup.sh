@@ -26,7 +26,7 @@ setup() {
 
 apt-get update
 apt-get full-upgrade -y
-apt-get install -y --no-install-recommends curl
+apt-get install -y --no-install-recommends ca-certificates curl jq
 
 if [ -f "$pre_setup_script" ]; then $pre_setup_script; fi
 
