@@ -15,8 +15,8 @@ done
 chmod 700 ./setup.sh
 
 cd "$work_dir"
-export REPO_URL=repo_url
-export BRANCH=branch
+export REPO_URL=$repo_url
+export BRANCH=$branch
 docker compose down
 docker compose --progress=plain build --no-cache --pull
 docker compose up
