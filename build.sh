@@ -9,8 +9,8 @@ mkdir -p "$file_dir"
 cd "$file_dir"
 
 curl -sS -H 'Cache-Control: no-cache' \
-  -o ./ $repo_url/Dockerfile \
-  -o ./ $repo_url/$setup_script_name
+  -o ./Dockerfile $repo_url/Dockerfile \
+  -o ./$setup_script_name $repo_url/$setup_script_name
 
 chmod 700 ./$setup_script_name
 
