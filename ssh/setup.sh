@@ -25,5 +25,5 @@ useradd $login_user --comment 'Project' --create-home --shell /bin/bash
 usermod -aG sudo $login_user
 mkdir -p /home/$login_user/.ssh
 chmod 700 /home/$login_user/.ssh
-#touch /home/$login_user/.ssh/authorized_keys
-#chmod 400 /home/$login_user/.ssh/authorized_keys
+touch /home/$login_user/.ssh/authorized_keys
+chmod 400 /home/$login_user/.ssh/authorized_keys
