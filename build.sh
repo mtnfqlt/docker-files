@@ -1,5 +1,5 @@
 #!/bin/bash -e
-echo aaa
+echo aaasss
 # work_dir=$(dirname "$(realpath "$1")")
 # file_dir=$work_dir/files
 # repo_url='https://raw.githubusercontent.com/mtnfqlt/docker-files/refs/heads/main'
