@@ -1,5 +1,6 @@
 #!/bin/bash -e
 
+echo "$1"
 work_dir=$(dirname "$(realpath "$1")")
 #port="$2"
 start_script=$work_dir/start.sh
