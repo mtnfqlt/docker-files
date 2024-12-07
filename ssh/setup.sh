@@ -6,7 +6,7 @@ start_script=$work_dir/start.sh
 #login_user='project'
 
 apt-get install -y --no-install-recommends ssh sudo
-echo "Port $port" > /etc/ssh/sshd_config.d
+echo "Port $port" > /etc/ssh/sshd_config.d/docker.conf
 
 cat > "$start_script" << EOT
 #!/bin/bash -e
