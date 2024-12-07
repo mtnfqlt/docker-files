@@ -1,11 +1,12 @@
 #!/bin/bash -e
 
 work_dir="$1"
-#port="$2"
+port="$2"
 start_script=$work_dir/start.sh
 #login_user='project'
 
 apt-get install -y --no-install-recommends ssh sudo
+echo "Port $port" > /etc/ssh/sshd_config.d
 
 cat > "$start_script" << EOT
 #!/bin/bash -e
