@@ -14,10 +14,13 @@ echo "$setup_list"
 echo "$pre_setup_script"
 echo "$post_setup_script"
 
-ls -la
+apt-get update
+apt-get full-upgrade -y
+apt-get install -y --no-install-recommends curl
+
+
 if [ -f "$pre_setup_script" ]; then $pre_setup_script; fi
 
-ls -la
 if [ -f "$post_setup_script" ]; then $post_setup_script; fi
 
 # repo_url='https://raw.githubusercontent.com/mtnfqlt/docker-files/refs/heads/main'
