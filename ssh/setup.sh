@@ -24,7 +24,8 @@ cat > "$start_script" << EOT
 
 authorized_keys_file='$authorized_keys_file'
 
-find $ssh_dir -type f -name *.pub -exec cat {} + >> \$authorized_keys_file
+rm -f \$authorized_keys_file
+find $ssh_dir -maxdepth 1 -type f -name "*.pub" -exec cat {} + >> \$authorized_keys_file
 /usr/sbin/sshd -Def /etc/ssh/sshd_config
 EOT
 
