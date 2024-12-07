@@ -13,7 +13,7 @@ for file in Dockerfile setup.sh; do
     base64 -d > $CONTEXT/$file
 done
 
-chmod 700 ./setup.sh
+chmod 700 $CONTEXT/setup.sh
 docker compose down
 docker compose --progress=plain build --no-cache --pull
 docker compose up
