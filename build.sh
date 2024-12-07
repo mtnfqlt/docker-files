@@ -10,7 +10,7 @@ cd "$file_dir"
 curl -sS -z /dev/null -O $repo_url/Dockerfile -O $repo_url/$setup_script_name
 chmod 700 ./$setup_script_name
 
-# cd "$work_dir"
-# docker compose down
-# docker compose --progress=plain build --no-cache --pull
-# docker compose up
+cd "$work_dir"
+docker compose down
+docker compose --progress=plain build --no-cache --pull
+docker compose up
