@@ -4,6 +4,7 @@ work_dir=$(dirname "$(realpath "$1")")
 export REPO_URL=$2
 export BRANCH=$3
 export CONTEXT='./files'
+export DOCKERFILE='Dockerfile'
 
 cd "$work_dir"
 

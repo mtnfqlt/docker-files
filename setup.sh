@@ -1,11 +1,13 @@
 #!/bin/bash -e
 
-repo_url="$1"
-branch="$2"
-setup_list="$3"
-pre_setup_script="$4"
-post_setup_script="$5"
+expose="$1"
+repo_url="$2"
+branch="$3"
+setup_list="$4"
+pre_setup_script="$5"
+post_setup_script="$6"
 
+echo "$expose"
 echo "$repo_url"
 echo "$branch"
 echo "$setup_list"
