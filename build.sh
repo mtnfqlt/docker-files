@@ -7,7 +7,7 @@ setup_script_name='setup.sh'
 
 cd "$work_dir"
 mkdir -p "$file_dir"
-wget -nv $repo_url/Dockerfile $repo_url/$setup_script_name -P "$file_dir"
+wget -nv -N $repo_url/Dockerfile $repo_url/$setup_script_name -P "$file_dir"
 chmod 700 "$file_dir/$setup_script_name"
 
 # docker compose down
