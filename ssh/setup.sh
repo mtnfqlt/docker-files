@@ -6,12 +6,16 @@ start_script=$work_dir/start.sh
 #login_user='project'
 
 apt-get install -y --no-install-recommends ssh sudo
-echo "Port $port" > /etc/ssh/sshd_config.d/docker.conf
+mkdir -p /run/sshd
+
+cat > /etc/ssh/sshd_config.d/docker.conf << EOT
+Port $port
+AddressFamily inet
+EOT
 
 cat > "$start_script" << EOT
 #!/bin/bash -e
 
-mkdir -p /run/sshd
 /usr/sbin/sshd -Def /etc/ssh/sshd_config
 EOT
 
