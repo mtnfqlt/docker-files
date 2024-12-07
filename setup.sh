@@ -15,7 +15,7 @@ echo "$branch"
 echo "$setup_role_list"
 echo "$pre_setup_script"
 echo "$post_setup_script"
-exit
+
 setup() {
   local role="$1"
 
@@ -24,7 +24,8 @@ setup() {
     base64 -d | \
     bash -s "$work_dir" "$port"
 }
-
+setup ssh
+exit
 # Sets debconf to use non-interactive mode for package installation
 echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 apt-get update
