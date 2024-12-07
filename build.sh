@@ -1,6 +1,13 @@
 #!/bin/bash -e
-echo aaasssdfsdf
-# work_dir=$(dirname "$(realpath "$1")")
+
+work_dir=$(dirname "$(realpath "$1")")
+repo_url=$2
+branch=$3
+
+echo "$work_dir"
+echo "$repo_url"
+echo "$branch"
+
 # file_dir=$work_dir/files
 # repo_url='https://raw.githubusercontent.com/mtnfqlt/docker-files/refs/heads/main'
 # setup_script_name='setup.sh'
