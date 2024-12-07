@@ -1,5 +1,9 @@
 #!/bin/bash -e
 
+echo "$1"
+echo "$2"
+echo "$3"
+
 # repo_url='https://raw.githubusercontent.com/mtnfqlt/docker-files/refs/heads/main'
 
 # setup_list='
