@@ -3,27 +3,30 @@
 work_dir="$1"
 port=$(echo "$2" | awk '{print $1}')
 start_script=$work_dir/start.sh
-login_user='project'
 
 apt-get install -y --no-install-recommends ssh sudo
-mkdir -p /run/sshd
+login_user='project'
+useradd $login_user --comment 'Project' --create-home --shell /bin/bash
+usermod -aG sudo $login_user
+ssh_dir=/home/$login_user/.ssh
+mkdir -p $ssh_dir
+chmod 700 $ssh_dir
+authorized_keys_file='/etc/ssh/authorized_keys'
 
 cat > /etc/ssh/sshd_config.d/docker.conf << EOT
 Port $port
 AddressFamily inet
+AuthorizedKeysFile $authorized_keys_file
 EOT
 
 cat > "$start_script" << EOT
 #!/bin/bash -e
 
+authorized_keys_file='$authorized_keys_file'
+
+find $ssh_dir -type f -name *.pub -exec cat {} + >> \$authorized_keys_file
 /usr/sbin/sshd -Def /etc/ssh/sshd_config
 EOT
 
 chmod 700 "$start_script"
-
-useradd $login_user --comment 'Project' --create-home --shell /bin/bash
-usermod -aG sudo $login_user
-mkdir -p /home/$login_user/.ssh
-chmod 700 /home/$login_user/.ssh
-touch /home/$login_user/.ssh/authorized_keys
-chmod 400 /home/$login_user/.ssh/authorized_keys
+mkdir -p /run/sshd

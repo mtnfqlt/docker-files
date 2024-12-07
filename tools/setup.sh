@@ -8,5 +8,6 @@ apt-get install -y --no-install-recommends \
   mc \
   net-tools \
   procps \
+  shellcheck \
   telnet \
   wget
