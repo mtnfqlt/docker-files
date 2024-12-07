@@ -1,13 +1,13 @@
 #!/bin/bash -e
 
-expose="$1"
+port="$1"
 repo_url="$2"
 branch="$3"
 setup_list="$4"
 pre_setup_script="./$5"
 post_setup_script="./$6"
 
-echo "$expose"
+echo "$port"
 echo "$repo_url"
 echo "$branch"
 echo "$setup_list"

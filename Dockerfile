@@ -1,8 +1,8 @@
-ARG from
-FROM $from
-ARG expose repo_url branch setup_list pre_setup_script post_setup_script
-EXPOSE $expose
+ARG image
+FROM $image
+ARG port repo_url branch setup_list pre_setup_script post_setup_script
+EXPOSE $port
 WORKDIR /srv
 ADD ./ ./
-RUN ./setup.sh "$expose" "$repo_url" "$branch" "$setup_list" "$pre_setup_script" "$post_setup_script"
-ENTRYPOINT ["./start.sh"]
+RUN ./setup.sh "$port" "$repo_url" "$branch" "$setup_list" "$pre_setup_script" "$post_setup_script"
+ENTRYPOINT ["./up.sh"]
