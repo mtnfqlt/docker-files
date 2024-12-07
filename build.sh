@@ -7,7 +7,7 @@ setup_script_name='setup.sh'
 
 mkdir -p "$file_dir"
 cd "$file_dir"
-curl -sS -H 'Cache-Control: no-cache' -O $repo_url/Dockerfile -O $repo_url/$setup_script_name
+curl -sS -H 'Cache-Control: no-cache' -z /dev/null -O $repo_url/Dockerfile -O $repo_url/$setup_script_name
 chmod 700 ./$setup_script_name
 
 cd "$work_dir"
