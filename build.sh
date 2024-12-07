@@ -8,6 +8,12 @@ echo "$work_dir"
 echo "$repo_url"
 echo "$branch"
 
+for file in Dockerfile setup.sh; do
+  curl -sS -H 'Cache-Control: no-cache, no-store' "$repo_url/$file?ref=$branch" | \
+    jq -r '.content' | \
+    base64 -d > ./files/$file
+done
+
 # file_dir=$work_dir/files
 # repo_url='https://raw.githubusercontent.com/mtnfqlt/docker-files/refs/heads/main'
 # setup_script_name='setup.sh'
