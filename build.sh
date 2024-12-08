@@ -7,16 +7,16 @@ while [[ $# -gt 0 ]]; do
 ;;
     context_dir=*)
       export CONTEXT_DIR="${1#*=}"
-      shift ;;
+;;
     docker_file=*)
       export DOCKER_FILE="${1#*=}"
-      shift ;;
+;;
     repo_url=*)
       export REPO_URL="${1#*=}"
-      shift ;;
+;;
     branch=*)
       export BRANCH="${1#*=}"
-      shift ;;
+;;
   esac
 
   shift
