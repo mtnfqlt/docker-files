@@ -2,19 +2,19 @@
 
 while [[ $# -gt 0 ]]; do
   case $1 in
-    --work-dir)
+    work-dir)
       work_dir="$2"
       shift ;;
-    --context-dir)
+    context-dir)
       export CONTEXT_DIR="$2"
       shift ;;
-    --docker-file)
+    docker-file)
       export DOCKER_FILE="$2"
       shift ;;
-    --repo-url)
+    repo-url)
       export REPO_URL="$2"
       shift ;;
-    --branch)
+    branch)
       export BRANCH="$2"
       shift ;;
   esac
