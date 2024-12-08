@@ -1,22 +1,17 @@
 #!/bin/bash -e
 
-while [[ $# -gt 0 ]]; do
+while [ $# -gt 0 ]; do
   case $1 in
     work_dir=*)
-      work_dir="${1#*=}"
-;;
+      work_dir="${1#*=}" ;;
     context_dir=*)
-      export CONTEXT_DIR="${1#*=}"
-;;
+      export CONTEXT_DIR="${1#*=}" ;;
     docker_file=*)
-      export DOCKER_FILE="${1#*=}"
-;;
+      export DOCKER_FILE="${1#*=}" ;;
     repo_url=*)
-      export REPO_URL="${1#*=}"
-;;
+      export REPO_URL="${1#*=}" ;;
     branch=*)
-      export BRANCH="${1#*=}"
-;;
+      export BRANCH="${1#*=}" ;;
   esac
 
   shift
