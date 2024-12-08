@@ -3,26 +3,27 @@
 for arg in "$@"; do
   case $arg in
     work_dir=*)
-      #work_dir="${arg#*=}" ;;
-      eval "$arg" ;;
+      work_dir=${arg#*=} ;;
     context_dir=*)
-      export CONTEXT_DIR="${arg#*=}" ;;
+      export CONTEXT_DIR=${arg#*=} ;;
     docker_file=*)
-      export DOCKER_FILE="${arg#*=}" ;;
+      export DOCKER_FILE=${arg#*=} ;;
     repo_url=*)
-      export REPO_URL="${arg#*=}" ;;
+      export REPO_URL=${arg#*=} ;;
     branch=*)
-      export BRANCH="${arg#*=}" ;;
+      export BRANCH=${arg#*=} ;;
   esac
 done
 
+# shellcheck disable=SC2154
 echo "$work_dir"
 echo "$CONTEXT_DIR"
 echo "$DOCKER_FILE"
 echo "$REPO_URL"
 echo "$BRANCH"
 
-# cd "$work_dir"
+# shellcheck disable=SC2154
+cd "$work_dir"
 
 # for file in $DOCKER_FILE setup.sh; do
 #   curl -sS -H 'Cache-Control: no-cache, no-store' "$REPO_URL/$file?ref=$BRANCH" | \
