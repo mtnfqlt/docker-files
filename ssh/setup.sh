@@ -2,7 +2,7 @@
 
 work_dir="$1"
 port=$(echo "$2" | awk '{print $1}')
-start_script=$work_dir/start.sh
+entrypint_script=$work_dir/start.sh
 
 apt-get install -y --no-install-recommends ssh sudo
 
@@ -24,7 +24,7 @@ AddressFamily inet
 AuthorizedKeysFile $authorized_keys_file
 EOT
 
-cat > "$start_script" << EOT
+cat > "$entrypint_script" << EOT
 #!/bin/bash -e
 
 authorized_keys_file='$authorized_keys_file'
@@ -35,5 +35,5 @@ echo Container IP "\$(ip route get 8.8.8.8 | head -1 | awk '{print \$7}')"
 /usr/sbin/sshd -Def /etc/ssh/sshd_config
 EOT
 
-chmod 700 "$start_script"
+chmod 700 "$entrypint_script"
 mkdir -p /run/sshd
