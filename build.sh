@@ -3,7 +3,8 @@
 for arg in "$@"; do
   case $arg in
     work_dir=*)
-      work_dir="${arg#*=}" ;;
+      #work_dir="${arg#*=}" ;;
+      eval "$arg" ;;
     context_dir=*)
       export CONTEXT_DIR="${arg#*=}" ;;
     docker_file=*)
@@ -20,12 +21,6 @@ echo "$CONTEXT_DIR"
 echo "$DOCKER_FILE"
 echo "$REPO_URL"
 echo "$BRANCH"
-
-# work_dir=$(dirname "$(realpath "$1")")
-# export CONTEXT_DIR=$2
-# export DOCKER_FILE=$3
-# export REPO_URL=$4
-# export BRANCH=$5
 
 # cd "$work_dir"
 
