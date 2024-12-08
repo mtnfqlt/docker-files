@@ -1,20 +1,49 @@
 #!/bin/bash -e
 
-work_dir=$(dirname "$(realpath "$1")")
-export CONTEXT_DIR=$2
-export DOCKER_FILE=$3
-export REPO_URL=$4
-export BRANCH=$5
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --work-dir)
+      work_dir="$2"
+      shift ;;
+    --context-dir)
+      export CONTEXT_DIR="$2"
+      shift ;;
+    --docker-file)
+      export DOCKER_FILE="$2"
+      shift ;;
+    --repo-url)
+      export REPO_URL="$2"
+      shift ;;
+    --branch)
+      export BRANCH="$2"
+      shift ;;
+  esac
 
-cd "$work_dir"
-
-for file in $DOCKER_FILE setup.sh; do
-  curl -sS -H 'Cache-Control: no-cache, no-store' "$REPO_URL/$file?ref=$BRANCH" | \
-    jq -r '.content' | \
-    base64 -d > "$CONTEXT_DIR/$file"
+  shift
 done
 
-chmod 700 "$CONTEXT_DIR/setup.sh"
-docker compose down
-docker compose --progress=plain build --no-cache --pull
-docker compose up
+echo "$work_dir"
+echo "$CONTEXT_DIR"
+echo "$DOCKER_FILE"
+echo "$REPO_URL"
+echo "$BRANCH"
+
+# work_dir=$(dirname "$(realpath "$1")")
+# export CONTEXT_DIR=$2
+# export DOCKER_FILE=$3
+# export REPO_URL=$4
+# export BRANCH=$5
+
+# cd "$work_dir"
+
+# for file in $DOCKER_FILE setup.sh; do
+#   curl -sS -H 'Cache-Control: no-cache, no-store' "$REPO_URL/$file?ref=$BRANCH" | \
+#     jq -r '.content' | \
+#     base64 -d > "$CONTEXT_DIR/$file"
+# done
+
+# chmod 700 "$CONTEXT_DIR/setup.sh"
+# docker compose down
+# docker compose --progress=plain build --no-cache --pull
+# docker compose up
+
