@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-while [ $# -gt 0 ]; do
+while $#; do
   case $1 in
     work_dir=*)
       work_dir="${1#*=}" ;;
