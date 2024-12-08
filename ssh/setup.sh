@@ -2,7 +2,7 @@
 
 work_dir="$1"
 port=$(echo "$2" | awk '{print $1}')
-entrypint_script=$work_dir/start.sh
+entrypint_script=$work_dir/entrypint.sh
 
 apt-get install -y --no-install-recommends ssh sudo
 
