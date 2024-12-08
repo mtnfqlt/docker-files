@@ -31,6 +31,7 @@ authorized_keys_file='$authorized_keys_file'
 
 rm -f \$authorized_keys_file
 find $ssh_dir -maxdepth 1 -type f -name '*.pub' -exec cat {} + >> \$authorized_keys_file
+ip route get 8.8.8.8 | awk '{print $7}'
 /usr/sbin/sshd -Def /etc/ssh/sshd_config
 EOT
 
