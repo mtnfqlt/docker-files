@@ -7,6 +7,7 @@ branch="$3"
 setup_role_list="$4"
 pre_setup_script="./$5"
 post_setup_script="./$6"
+php_mod_list="./$7"
 
 echo "$work_dir"
 echo "$port_list"
@@ -15,6 +16,7 @@ echo "$branch"
 echo "$setup_role_list"
 echo "$pre_setup_script"
 echo "$post_setup_script"
+echo "$php_mod_list"
 
 setup() {
   local role="$1"
@@ -22,14 +24,14 @@ setup() {
   curl -sS -H 'Cache-Control: no-cache, no-store' "$repo_url/$role/setup.sh?ref=$branch" | \
     jq -r '.content' | \
     base64 -d | \
-    bash -s "$work_dir" "$port_list"
+    bash -s "$work_dir" "$port_list" "$php_mod_list"
 }
 
 # Sets debconf to use non-interactive mode for package installation
 echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 apt-get update
 apt-get full-upgrade -y
-apt-get install -y --no-install-recommends ca-certificates curl jq
+apt-get install -y --no-install-recommends apt-utils ca-certificates curl jq
 
 if [ -f "$pre_setup_script" ]; then $pre_setup_script; fi
 
