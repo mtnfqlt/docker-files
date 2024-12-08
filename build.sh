@@ -1,20 +1,18 @@
 #!/bin/bash -e
 
-while $#; do
-  case $1 in
+for arg in "$@"; do
+  case $arg in
     work_dir=*)
-      work_dir="${1#*=}" ;;
+      work_dir="${arg#*=}" ;;
     context_dir=*)
-      export CONTEXT_DIR="${1#*=}" ;;
+      export CONTEXT_DIR="${arg#*=}" ;;
     docker_file=*)
-      export DOCKER_FILE="${1#*=}" ;;
+      export DOCKER_FILE="${arg#*=}" ;;
     repo_url=*)
-      export REPO_URL="${1#*=}" ;;
+      export REPO_URL="${arg#*=}" ;;
     branch=*)
-      export BRANCH="${1#*=}" ;;
+      export BRANCH="${arg#*=}" ;;
   esac
-
-  shift
 done
 
 echo "$work_dir"
