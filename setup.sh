@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 work_dir=$(dirname "$(realpath "$0")")
-ports="$1"
+port_list="$1"
 repo_url="$2"
 branch="$3"
 setup_role_list="$4"
@@ -9,7 +9,7 @@ pre_setup_script="./$5"
 post_setup_script="./$6"
 
 echo "$work_dir"
-echo "$ports"
+echo "$port_list"
 echo "$repo_url"
 echo "$branch"
 echo "$setup_role_list"
@@ -22,7 +22,7 @@ setup() {
   curl -sS -H 'Cache-Control: no-cache, no-store' "$repo_url/$role/setup.sh?ref=$branch" | \
     jq -r '.content' | \
     base64 -d | \
-    bash -s "$work_dir" "$ports"
+    bash -s "$work_dir" "$port_list"
 }
 
 # Sets debconf to use non-interactive mode for package installation
