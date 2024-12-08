@@ -4,7 +4,7 @@ while [[ $# -gt 0 ]]; do
   case $1 in
     work_dir=*)
       work_dir="${1#*=}"
-      shift ;;
+;;
     context_dir=*)
       export CONTEXT_DIR="${1#*=}"
       shift ;;
