@@ -12,4 +12,4 @@ default_list='
   procps'
 
 # shellcheck disable=SC2154
-apt-get install -y --no-install-recommends "$default_list" "$list"
+eval apt-get install -y --no-install-recommends "$default_list" "$list"
