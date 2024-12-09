@@ -8,4 +8,4 @@ source ./include.src
 # shellcheck disable=SC2154
 echo "$list"
 
-docker-php-ext-enable "$list"
+#docker-php-ext-enable "$list"
