@@ -8,4 +8,4 @@ source ./include.src
 #   pecl install "$mod"
 # done
 
-pecl install "$mod_list"
+pecl install "$list"
