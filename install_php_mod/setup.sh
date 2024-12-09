@@ -4,6 +4,6 @@
 source ./include.src
 
 # shellcheck disable=SC2154
-for mod in $mod_list; do
+for mod in $list; do
   pecl install "$mod"
 done
