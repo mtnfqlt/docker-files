@@ -1,0 +1,22 @@
+#!/bin/bash -e
+
+IFS="--"
+
+for arg in "$@"; do
+  echo "Elementas: '$arg'"
+done
+
+# for arg in "$@"; do
+#   case $arg in
+#     work_dir=*)
+#       work_dir=${arg#*=} ;;
+#     context_dir=*)
+#       export CONTEXT_DIR=${arg#*=} ;;
+#     docker_file=*)
+#       export DOCKER_FILE=${arg#*=} ;;
+#     repo_url=*)
+#       export REPO_URL=${arg#*=} ;;
+#     branch=*)
+#       export BRANCH=${arg#*=} ;;
+#   esac
+# done
