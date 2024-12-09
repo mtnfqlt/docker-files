@@ -7,3 +7,5 @@ for arg in $arg_list; do
   value=$(echo "$arg" | cut -d'|' -f2- | sed 's/|/ /' | sed 's/[[:space:]]*$//')
   eval "$variable='$value'"
 done
+
+set --
