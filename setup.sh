@@ -16,8 +16,9 @@ apt-get full-upgrade -y
 apt-get install -y --no-install-recommends apt-utils jq
 
 echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | \
-while IFS= read -r key; do
+while read -r key; do
   echo "$key"
+#  echo "$value"
 done
 
 # | while read -r ddir zarg; do
