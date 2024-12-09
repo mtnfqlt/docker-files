@@ -1,11 +1,11 @@
 #!/bin/bash -e
 
-arg_list=$(echo "$@" | sed 's/ /|/g' | sed 's/--/ /')
+# arg_list=$(echo "$@" | sed 's/ /|/g' | sed 's/--/ /')
 
-for arg in $arg_list; do
-  variable=$(echo "$arg" | cut -d'|' -f1)
-  value=$(echo "$arg" | cut -d'|' -f2- | sed 's/|/ /' | sed 's/[[:space:]]*$//')
-  #eval "$variable='$value'"
-done
+# for arg in $arg_list; do
+#   variable=$(echo "$arg" | cut -d'|' -f1)
+#   value=$(echo "$arg" | cut -d'|' -f2- | sed 's/|/ /' | sed 's/[[:space:]]*$//')
+#   #eval "$variable='$value'"
+# done
 
 list='redis-6.1.0 xdebug-3.4.0'
