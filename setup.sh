@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+echo "$1"
+
 # work_dir=$(dirname "$(realpath "$0")")
 # port_list="$1"
 # repo_url="$2"
