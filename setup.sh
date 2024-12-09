@@ -2,7 +2,7 @@
 
 printf '\033[1;32m%s\033[0m\n' "$0"
 
-setup_list=$(echo "$1" | jq -r .[] | sed 's/ /|/g')
+setup_list=$(echo "$1" | jq -r 'to_entries[] | "\(.key) \(.value)"' | sed 's/ /|/g')
 
 install_php_mod() {
   echo "$2"
