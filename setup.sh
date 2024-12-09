@@ -2,14 +2,22 @@
 
 setup_list="$1"
 
+install_tools() {
+  echo "$1"
+}
+
+create_user() {
+  echo "$1"
+}
+
 # Sets debconf to use non-interactive mode for package installation
 echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 apt-get update
 apt-get full-upgrade -y
 apt-get install -y --no-install-recommends apt-utils jq
 
-echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | while read -r key value; do
-  echo "Key: $key, Value: $value"
+echo "$setup_list" | jq -r 'to_entries[] | "\(.func) \(.args)"' | while read -r func args; do
+  $func "$args"
 done
 
 # work_dir=$(dirname "$(realpath "$0")")
