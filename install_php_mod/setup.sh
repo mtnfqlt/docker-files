@@ -15,7 +15,7 @@ while [ $# -gt 0 ]; do
 done
 echo "Po ciklo: $@"
 
-exec "pecl install redis-6.1.0"
+exec "pecl" install redis-6.1.0
 
 # for mod in $list; do
 #   eval pecl install "$mod"
