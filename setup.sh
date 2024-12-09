@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+printf '\033[1;32m%s\033[0m\n' "$0"
+
 setup_list="$1"
 
 # Sets debconf to use non-interactive mode for package installation
