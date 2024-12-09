@@ -5,6 +5,7 @@ printf '\033[1;32m%s\033[0m\n' "$0"
 setup_list="$1"
 
 install_php_mod() {
+  echo "$2"
   pecl install "$2"
 }
 
