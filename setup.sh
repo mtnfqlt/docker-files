@@ -17,7 +17,7 @@ apt-get full-upgrade -y
 apt-get install -y --no-install-recommends apt-utils jq
 
 echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | while read -r key value; do
-  $key "$value"
+  "$key" "$value"
 done
 
 # work_dir=$(dirname "$(realpath "$0")")
