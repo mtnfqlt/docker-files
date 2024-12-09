@@ -16,6 +16,9 @@ apt-get full-upgrade -y
 apt-get install -y --no-install-recommends apt-utils jq
 
 echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"'
+
+echo "$setup_list" | jq -r .[]
+
 # | while read -r ddir zarg; do
 #   #"./$dir/setup.sh" "$arg"
 #   echo "$ddir"
