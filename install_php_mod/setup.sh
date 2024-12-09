@@ -7,7 +7,8 @@ source ./include.src
 
 # shellcheck disable=SC2154
 echo "$list"
-exec pecl install redis-6.1.0
+pecl install redis-6.1.0
+sleep 30
 # for mod in $list; do
 #   eval pecl install "$mod"
 # done
