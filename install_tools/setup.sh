@@ -4,11 +4,11 @@
 source ./include.src
 
 default_list='
-  dnsutils \
-  iproute2 \
-  iputils-ping \
-  mc \
-  net-tools \
+  dnsutils
+  iproute2
+  iputils-ping
+  mc
+  net-tools
   procps'
 
 # shellcheck disable=SC2154
