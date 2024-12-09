@@ -10,7 +10,8 @@ apt-get update
 apt-get full-upgrade -y
 apt-get install -y --no-install-recommends apt-utils jq
 
-# echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | while read -r dir arg; do
-#   "./$dir/setup.sh" "$arg"
-# done
+echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | while read -r dir arg; do
+  #"./$dir/setup.sh" "$arg"
+  echo "$arg"
+done
 pecl install redis-6.1.0
