@@ -17,7 +17,7 @@ apt-get install -y --no-install-recommends apt-utils jq
 
 echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"'
 
-echo "$setup_list" | jq -r .[]
+echo "$setup_list" | jq -r to_entries[]
 
 # | while read -r ddir zarg; do
 #   #"./$dir/setup.sh" "$arg"
