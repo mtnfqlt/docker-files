@@ -15,24 +15,21 @@ for arg in "$@"; do
   esac
 done
 
-# shellcheck disable=SC2154
 echo "$work_dir"
 echo "$CONTEXT_DIR"
 echo "$DOCKER_FILE"
 echo "$REPO_URL"
 echo "$BRANCH"
 
-# shellcheck disable=SC2154
 cd "$work_dir"
 
-# for file in $DOCKER_FILE setup.sh; do
-#   curl -sS -H 'Cache-Control: no-cache, no-store' "$REPO_URL/$file?ref=$BRANCH" | \
-#     jq -r '.content' | \
-#     base64 -d > "$CONTEXT_DIR/$file"
-# done
+for file in $DOCKER_FILE setup.sh; do
+  curl -sS -H 'Cache-Control: no-cache, no-store' "$REPO_URL/$file?ref=$BRANCH" | \
+    jq -r '.content' | \
+    base64 -d > "$CONTEXT_DIR/$file"
+done
 
-# chmod 700 "$CONTEXT_DIR/setup.sh"
-# docker compose down
-# docker compose --progress=plain build --no-cache --pull
-# docker compose up
-
+chmod 700 "$CONTEXT_DIR/setup.sh"
+docker compose down
+docker compose --progress=plain build --no-cache --pull
+docker compose up
