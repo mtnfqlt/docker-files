@@ -19,5 +19,5 @@ echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | while read -r 
   #"./$dir/setup.sh" "$arg"
   echo "$ddir"
   echo "$zarg"
-  "$dir" $zarg
+  "$ddir" $zarg
 done
