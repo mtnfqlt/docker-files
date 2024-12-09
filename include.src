@@ -1,19 +1,13 @@
 #!/bin/bash -e
 
 
-while [[ $# -gt 0 ]]; do
-    case $1 in
-        --list)    echo "$2"; shift 2 ;;  # Priskirti reikiamą reikšmę list
-        --aaa)     echo "$2"; shift 2 ;;   # Priskirti reikiamą reikšmę aaa
-        --bbb)     echo "$2"; shift 2 ;;   # Priskirti reikiamą reikšmę bbb
-        *)         shift ;;                # Ignoruoti kitus argumentus
-    esac
+IFS='--'
+
+for arg in "$@"; do
+  echo "$arg"
 done
 
-# for arg in "$@"; do
-#   #eval "$(echo "$arg" | awk '{print $1=$N}')"
-#   echo $arg
-# done
+unset IFS
 
 # for arg in "$@"; do
 #   case $arg in
