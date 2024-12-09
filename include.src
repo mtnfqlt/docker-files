@@ -1,9 +1,9 @@
 #!/bin/bash -e
 
-IFS="--"
 
 for arg in "$@"; do
-  echo "Elementas: '$arg'"
+  #eval "$(echo "$arg" | awk '{print $1=$N}')"
+  echo $arg
 done
 
 # for arg in "$@"; do
