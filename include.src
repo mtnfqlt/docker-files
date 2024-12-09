@@ -9,3 +9,4 @@ for arg in $arg_list; do
 done
 
 set --
+echo "$@"
