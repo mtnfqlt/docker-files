@@ -13,4 +13,5 @@ default_list='
 
 # shellcheck disable=SC2154
 list="$default_list $list"
-apt-get install -y --no-install-recommends "$list"
+echo "$list"
+#apt-get install -y --no-install-recommends "$list"
