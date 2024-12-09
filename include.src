@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-arg_list=$(echo $@ | set 's/ /#/g' | sed 's/--/ /g')
+arg_list=$(echo "$@" | sed 's/ /#/g' | sed 's/--/ /g')
 
 for arg in $arg_list; do
   echo "$arg"
