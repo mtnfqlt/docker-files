@@ -1,13 +1,12 @@
 #!/bin/bash -e
 
-
-IFS='--'
-
 for arg in "$@"; do
-  echo "$arg"
+  if [[ $arg == --* ]]; then
+    echo "${arg#??}"
+  fi
 done
 
-unset IFS
+
 
 # for arg in "$@"; do
 #   case $arg in
