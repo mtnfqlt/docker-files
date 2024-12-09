@@ -15,7 +15,7 @@ apt-get update
 apt-get full-upgrade -y
 apt-get install -y --no-install-recommends apt-utils jq
 
-echo "$setup_list" | jq -r 'to_entries[] | "\(.func) \(.value)"'
+echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"'
 #  | \
 # while read -r key value; do
 #   echo "$key"
