@@ -1,9 +1,9 @@
 #!/bin/bash -e
 
-for arg in "$@"; do
-  if [[ $arg == --* ]]; then
-    echo "${arg#??}"
-  fi
+arg_list=$(echo $@ | set 's/ /#/g' | sed 's/--/ /g')
+
+for arg in $arg_list; do
+  echo "$arg"
 done
 
 
