@@ -15,15 +15,16 @@ apt-get update
 apt-get full-upgrade -y
 apt-get install -y --no-install-recommends apt-utils jq
 
-setup_list=$(echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | sed 's/ /|/g')
+setup_list=$(echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | sed 's/  */ /g;s/ *$//;s/ /|/g')
 echo "$setup_list"
 
-# while read -r key value; do
-#   echo "$key"
-#   echo "$value"
-#   #install_php_mod $value
-#   pecl install redis-6.1.0
-# done
+for setup in $setup_list; do
+  dir=
+  echo "$key"
+  echo "$value"
+  #install_php_mod $value
+  pecl install redis-6.1.0
+done
 
 # | while read -r ddir zarg; do
 #   #"./$dir/setup.sh" "$arg"
