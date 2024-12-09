@@ -2,7 +2,7 @@
 
 printf '\033[1;32m%s\033[0m\n' "$0"
 
-setup_list="$1"
+setup_list=$(echo "$1" | jq -r .[] | sed 's/ /|/g')
 
 install_php_mod() {
   echo "$2"
@@ -15,7 +15,7 @@ apt-get update
 apt-get full-upgrade -y
 apt-get install -y --no-install-recommends apt-utils jq
 
-setup_list=$(echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | sed 's/ /|/g')
+#setup_list=$(echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | sed 's/ /|/g')
 echo "$setup_list"
 
 # while read -r key value; do
