@@ -9,5 +9,5 @@ source ./include.src
 echo "$list"
 
 for mod in $list; do
-  pecl install "$mod"
+  eval pecl install "$mod"
 done
