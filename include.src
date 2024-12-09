@@ -9,4 +9,3 @@
 # done
 
 #list='redis-6.1.0 xdebug-3.4.0'
-pecl install redis-6.1.0
