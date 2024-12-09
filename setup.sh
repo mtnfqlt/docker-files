@@ -4,6 +4,10 @@ printf '\033[1;32m%s\033[0m\n' "$0"
 
 setup_list="$1"
 
+install_php_mod() {
+  pecl install "$1"
+}
+
 # Sets debconf to use non-interactive mode for package installation
 echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 apt-get update
@@ -14,5 +18,5 @@ echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | while read -r 
   #"./$dir/setup.sh" "$arg"
   echo "$dir"
   echo "$arg"
+  "$dir" "$arg"
 done
-pecl install redis-6.1.0
