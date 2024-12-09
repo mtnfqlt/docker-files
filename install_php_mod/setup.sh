@@ -7,7 +7,7 @@ source ./include.src
 
 # shellcheck disable=SC2154
 echo "$list"
-
-for mod in $list; do
-  eval pecl install "$mod"
-done
+eval pecl install reds
+# for mod in $list; do
+#   eval pecl install "$mod"
+# done
