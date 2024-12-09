@@ -15,12 +15,12 @@ apt-get update
 apt-get full-upgrade -y
 apt-get install -y --no-install-recommends apt-utils jq
 
-echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | \
-while read -r aaa bbb; do
-  echo "$key"
-  echo "$value"
-  install_php_mod $value
-done
+echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"'
+# while read -r aaa bbb; do
+#   echo "$key"
+#   echo "$value"
+  install_php_mod
+# done
 
 # | while read -r ddir zarg; do
 #   #"./$dir/setup.sh" "$arg"
