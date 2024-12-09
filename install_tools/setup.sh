@@ -3,5 +3,13 @@
 # shellcheck disable=SC1091
 source ./include.src
 
+default_list='
+  dnsutils \
+  iproute2 \
+  iputils-ping \
+  mc \
+  net-tools \
+  procps'
+
 # shellcheck disable=SC2154
-echo "$list"
+apt-get install -y --no-install-recommends "$default_list" "$list"
