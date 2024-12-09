@@ -19,7 +19,7 @@ echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | \
 while read -r key value; do
   echo "$key"
   echo "$value"
-  "$key" $value
+  install_php_mod $value
 done
 
 # | while read -r ddir zarg; do
