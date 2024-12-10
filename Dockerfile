@@ -5,4 +5,4 @@ EXPOSE $ctl_port $port_list
 WORKDIR /srv
 ADD ./ ./
 RUN ./setup.sh "$setup_list"
-CMD ["./init.sh", "$ctl_port", "$main_ps"]
+CMD ["./init.sh", $ctl_port, $main_ps]
