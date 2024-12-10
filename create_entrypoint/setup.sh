@@ -15,15 +15,13 @@ main_ps='$main_ps'
 
 ifconfig eth0 | grep ' inet ' | awk '{print \$2}'
 exec $main_ps &
-echo \$!
+main_pid=\$!
 
 while true; do
-  #pgrep -f $main_ps
+  echo "$main_pid"
   sleep 1
 done
 EOT
 
 chmod 700 $init_script
-
-
 cat ./init.sh
