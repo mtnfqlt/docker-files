@@ -20,7 +20,7 @@ main_pid=\$!
 
 while true; do
   echo "\$main_pid"
-  nc -w 3 -l \$port
+  nc -l \$port
 done
 EOT
 
