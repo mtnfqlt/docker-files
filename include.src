@@ -5,7 +5,7 @@ arg_list=$(echo "$@" | sed 's/ /|/g;s/--/ /g')
 
 for arg in $arg_list; do
   variable=$(echo "$arg" | cut -d'=' -f1)
-  value=$(echo "$arg" | cut -d'=' -f2 | sed 's/|/ /;s/^ *//;s/ *$//')
+  value=$(echo "$arg" | cut -d'=' -f2 | sed 's/|/ /g;s/^ *//g;s/ *$//g')
   echo "$variable"
   echo "$value"
 done
