@@ -48,5 +48,3 @@ done
 EOT
 
 chmod 700 $init_script
-
-cat $init_script
