@@ -9,16 +9,14 @@ exec_on_exit() {
 }
 
 start_main_ps() {
+  printf '\033[1;32m%s\033[0m\n' "${FUNCNAME[0]}"
   setsid "$MAIN_PS" &
   main_pid=$!
-  printf '\033[1;32mStarting main process (PID %s)...\033[0m\n' "$main_pid"
 }
 
 stop_main_ps() {
-  if [ -n "$main_pid" ]; then
-    kill "$main_pid"
-    printf '\033[1;33mTerminating main process (PID %s)...\033[0m\n' "$main_pid"
-  fi
+  printf '\033[1;33m%s\033[0m\n' "${FUNCNAME[0]}"
+  if [ -n "$main_pid" ]; then kill "$main_pid"; fi
 }
 
 restart_main_ps() {
@@ -60,7 +58,6 @@ for init_script in $init_script_list; do
   $init_script &
 done
 
-sleep 1
 start_main_ps
 
 while true; do
