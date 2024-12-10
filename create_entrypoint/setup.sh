@@ -11,8 +11,15 @@ source ./include.src
 cat > $init_script << EOT
 #!/bin/bash -e
 
+main_ps='$main_ps'
+
 ifconfig eth0 | grep ' inet ' | awk '{print \$2}'
-exec $main_ps
+exec $main_ps &
+
+while true; do
+  grep -f $main_ps
+  sleep 1000
+doen
 EOT
 
 chmod 700 $init_script
