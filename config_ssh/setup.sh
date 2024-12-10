@@ -3,5 +3,41 @@
 # shellcheck disable=SC1091
 source ./include.src
 
-# shellcheck disable=SC2154
-echo "$list"
+apt-get install -y --no-install-recommends ssh sudo
+
+login_user='project'
+useradd $login_user --comment 'Project' --create-home --shell /bin/bash
+usermod -aG sudo $login_user
+echo "$login_user ALL=(ALL) NOPASSWD:ALL" > "/etc/sudoers.d/$login_user"
+chmod 440 /etc/sudoers.d/$login_user
+
+ssh_dir=/home/$login_user/.ssh
+mkdir -p $ssh_dir
+chmod 700 $ssh_dir
+
+authorized_keys_file='/etc/ssh/authorized_keys'
+
+cat > /etc/ssh/sshd_config.d/docker.conf << EOT
+AddressFamily inet
+AuthorizedKeysFile $authorized_keys_file
+EOT
+
+init_script='./init.d/100_sshd.sh'
+
+cat > "$init_script" << EOT
+#!/bin/bash -e
+
+printf '\033[1;32m%s\033[0m\n' "\$0"
+
+work_dir=\$(dirname "\$(realpath "\$0")")
+
+authorized_keys_file='$authorized_keys_file'
+
+cd "\$work_dir"
+rm -f \$authorized_keys_file
+find $ssh_dir -maxdepth 1 -type f -name '*.pub' -exec cat {} + >> \$authorized_keys_file
+/usr/sbin/sshd -Def /etc/ssh/sshd_config
+EOT
+
+chmod 700 "$init_script"
+mkdir -p /run/sshd

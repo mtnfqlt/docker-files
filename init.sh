@@ -49,15 +49,15 @@ setup_script='/mnt/setup.sh'
 if [ -f $setup_script ]; then $setup_script; fi
 cd "$work_dir"
 
-init_list=$(find ./init.d -maxdepth 1 -type f -name '*.sh' | sort -V)
+init_script_list=$(find ./init.d -maxdepth 1 -type f -name '*.sh' | sort -V)
 
 if [ -z "$MAIN_PS" ]; then
-  MAIN_PS=$(echo "$init_list" | tail -n -1)
-  init_list=$(echo "$init_list" | head -n -1)
+  MAIN_PS=$(echo "$init_script_list" | tail -n -1)
+  init_script_list=$(echo "$init_script_list" | head -n -1)
 fi
 
-for init in $init_list; do
-  $init
+for init_script in $init_script_list; do
+  $init_script
 done
 
 start_main_ps
