@@ -17,7 +17,7 @@ ifconfig eth0 | grep ' inet ' | awk '{print \$2}'
 exec $main_ps &
 
 while true; do
-  grep -f $main_ps
+  pgrep -f $main_ps
   sleep 1000
 done
 EOT
