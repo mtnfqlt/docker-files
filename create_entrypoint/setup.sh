@@ -24,4 +24,6 @@ done
 EOT
 
 chmod 700 $init_script
-cat ./init.sh
+
+cat $init_script
+shellcheck $init_script
