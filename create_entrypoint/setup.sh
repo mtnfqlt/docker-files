@@ -20,7 +20,7 @@ main_pid=\$!
 
 while true; do
   echo "\$main_pid"
-  cmd=$(nc -l \$port)
+  cmd=$(nc -w 3 -l \$port)
   echo "\$cmd"
 done
 EOT
