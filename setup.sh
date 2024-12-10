@@ -15,5 +15,5 @@ for setup in $(echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' |
   arg_list=$(echo "$setup" | cut -d'|' -f2- | sed 's/|/ /g')
   echo "$dir"
   echo "$arg_list"
-  "./$dir/setup.sh" "$arg_list"
+  #"./$dir/setup.sh" "$arg_list"
 done
