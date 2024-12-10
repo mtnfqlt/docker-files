@@ -18,7 +18,7 @@ exec $main_ps &
 
 while true; do
   pgrep -f $main_ps
-  sleep 1000
+  sleep 1
 done
 EOT
 
