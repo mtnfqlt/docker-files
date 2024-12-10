@@ -19,7 +19,7 @@ exec $main_ps &
 while true; do
   grep -f $main_ps
   sleep 1000
-doen
+done
 EOT
 
 chmod 700 $init_script
