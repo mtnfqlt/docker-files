@@ -18,7 +18,7 @@ exec $main_ps &
 main_pid=\$!
 
 while true; do
-  echo "$main_pid"
+  echo "\$main_pid"
   sleep 1
 done
 EOT
