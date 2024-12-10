@@ -14,7 +14,7 @@ apt-get full-upgrade -y
 apt-get install -y --no-install-recommends apt-utils jq
 
 setup_list=$(echo "$setup_list" | \
-              jq -r 'to_entries[] | if .value == null then "\(.key)" else "\(.key) \(.value)"' | \
+              jq -r 'to_entries[] | if .value == null then "\(.key)" else "\(.key) \(.value)" end' | \
               sed "s/  */ /g;s/ /|/g")
 
 for setup in $setup_list; do
