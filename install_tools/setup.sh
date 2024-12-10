@@ -7,9 +7,11 @@ source ./include.src
 
 # shellcheck disable=SC2154
 eval apt-get install -y --no-install-recommends "$list" \
+  curl \
   dnsutils \
   iproute2 \
   iputils-ping \
   mc \
   net-tools \
-  procps
+  procps \
+  wget

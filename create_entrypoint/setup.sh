@@ -11,7 +11,7 @@ source ./include.src
 cat > $init_script << EOT
 #!/bin/bash -e
 
-ifconfig eth0 | grep ' inet ' | awk '{print $2}'
+ifconfig eth0 | grep ' inet ' | awk '{print \$2}'
 exec $main_ps
 EOT
 
