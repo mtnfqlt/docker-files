@@ -5,4 +5,4 @@ EXPOSE $port_list
 WORKDIR /srv
 ADD ./ ./
 RUN ./setup.sh "$setup_list"
-ENTRYPOINT ["./start.sh"]
+ENTRYPOINT ["./init.sh"]

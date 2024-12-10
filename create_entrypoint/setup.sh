@@ -4,4 +4,4 @@
 source ./include.src
 
 # shellcheck disable=SC2154
-echo "$list"
+echo "$main_ps"
