@@ -11,16 +11,21 @@ source ./include.src
 cat > $init_script << EOT
 #!/bin/bash -e
 
-port='54321'
 main_ps='$main_ps'
 
 ifconfig eth0 | grep ' inet ' | awk '{print \$2}'
-\$main_ps &
+exec \$main_ps &
 main_pid=\$!
+echo "\$main_pid"
 
 while true; do
-  echo "\$main_pid"
-  nc -l \$port
+  sleep 1
+
+  if ! pgrep "\$main_pid"; then
+    exec \$main_ps &
+    main_pid=\$!
+    echo "\$main_pid"
+  fi
 done
 EOT
 
