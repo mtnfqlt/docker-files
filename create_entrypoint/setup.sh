@@ -14,7 +14,7 @@ cat > $init_script << EOT
 main_ps='$main_ps'
 
 ifconfig eth0 | grep ' inet ' | awk '{print \$2}'
-exec $main_ps &
+$main_ps &
 
 while true; do
   #pgrep -f $main_ps
