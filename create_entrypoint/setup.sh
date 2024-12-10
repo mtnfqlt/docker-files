@@ -36,6 +36,16 @@ restart_main_ps() {
   start_main_ps
 }
 
+disable_xdebug() {
+  docker-php-ext-enable xdebug
+  restart_main_ps
+}
+
+disable_xdebug() {
+  rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+  restart_main_ps
+}
+
 trap exec_on_exit EXIT
 
 ip=\$(ifconfig eth0 | grep ' inet ' | awk '{print \$2}')
