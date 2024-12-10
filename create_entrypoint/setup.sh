@@ -11,19 +11,20 @@ source ./include.src
 cat > $init_script << EOT
 #!/bin/bash -e
 
+port='54321'
 main_ps='$main_ps'
 
 ifconfig eth0 | grep ' inet ' | awk '{print \$2}'
-exec $main_ps &
+\$main_ps &
 main_pid=\$!
 
 while true; do
   echo "\$main_pid"
-  sleep 1
+  cmd=$(nc -l \$port)
+  echo "\$cmd"
 done
 EOT
 
 chmod 700 $init_script
 
 cat $init_script
-#shellcheck $init_script
