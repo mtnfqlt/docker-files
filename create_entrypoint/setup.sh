@@ -36,20 +36,20 @@ restart_main_ps() {
   start_main_ps
 }
 
-disable_php_mod() {
-  local mod "\$1"
+enable_php_mod() {
+  local mod=\$1
 
-  docker-php-ext-enable \$mod
+  docker-php-ext-enable "\$mod"
   restart_main_ps
-  php -m | grep -i "\$mod"
+  php -m
 }
 
 disable_php_mod() {
-  local mod "\$1"
+  local mod=\$1
 
   rm -f "/usr/local/etc/php/conf.d/docker-php-ext-\$mod.ini"
   restart_main_ps
-  php -m | grep -i "\$mod"
+  php -m
 }
 
 trap exec_on_exit EXIT
