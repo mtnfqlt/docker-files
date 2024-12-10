@@ -11,14 +11,12 @@ exec_on_exit() {
 start_main_ps() {
   setsid "$MAIN_PS" &
   main_pid=$!
-  sleep 1
   printf '\033[1;32mThe main process was successfully started (PID:%s).\033[0m\n' "$main_pid"
 }
 
 stop_main_ps() {
   if [ -n "$main_pid" ]; then
     kill "$main_pid"
-    sleep 1
     printf '\033[1;33mThe main process was terminated (PID:%s).\033[0m\n' "$main_pid"
   fi
 }
