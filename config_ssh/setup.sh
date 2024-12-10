@@ -30,7 +30,6 @@ cat > "$init_script" << EOT
 printf '\033[1;32m%s\033[0m\n' "\$0"
 
 work_dir=\$(dirname "\$(realpath "\$0")")
-
 authorized_keys_file='$authorized_keys_file'
 
 cd "\$work_dir"

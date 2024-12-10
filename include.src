@@ -1,10 +1,7 @@
 #!/bin/bash -e
 
-work_dir=$(dirname "$(realpath "$0")")
 arg_list=$(echo "$@" | sed "s/ /|/g;s/--/ /g;s/'//g")
 init_script_dir='./init.d'
-
-cd "$work_dir"
 
 for arg in $arg_list; do
   variable=$(echo "$arg" | cut -d'=' -f1 | sed 's/-/_/g')
