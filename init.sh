@@ -2,15 +2,12 @@
 
 printf '\033[1;32m%s\033[0m\n' "$0"
 
-ctl_port=$1
-main_ps=$2
-
 exec_on_exit() {
   stop_main_ps
 }
 
 start_main_ps() {
-  setsid "$main_ps" &
+  setsid "$MAIN_PS" &
   main_pid=$!
   printf '\033[1;32mThe main process was successfully started (PID:%s).\033[0m\n' $main_pid
 }
@@ -44,9 +41,9 @@ disable_php_mod() {
 trap exec_on_exit EXIT
 
 ip=$(ifconfig eth0 | grep ' inet ' | awk '{print $2}')
-echo "$ip:$ctl_port"
+echo "$ip:$CTL_PORT"
 start_main_ps
 
 while true; do
-  eval "$(nc -lp "$ctl_port")" || true
+  eval "$(nc -lp "$CTL_PORT")" || true
 done
