@@ -12,7 +12,7 @@ eval apt-get install -y --no-install-recommends "$list" \
   iproute2 \
   iputils-ping \
   mc \
-  netcat-traditional \
+  netcat \
   net-tools \
   procps \
   wget
