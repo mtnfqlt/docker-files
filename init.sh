@@ -49,7 +49,7 @@ setup_script='/mnt/setup.sh'
 if [ -f $setup_script ]; then $setup_script; fi
 cd "$work_dir"
 
-init_list=$(find ./init.d -maxdepth 1 -type f -name '*.sh' -printf '%f\n' | sort -h)
+init_list=$(find ./init.d -maxdepth 1 -type f -name '*.sh' | sort -V)
 
 if [ -z "$MAIN_PS" ]; then
   init_list=$(echo "$init_list" | head -n -1)
@@ -60,7 +60,7 @@ for init in $init_list; do
   $init
 done
 
-if [ -n "$MAIN_PS" ]; then start_main_ps; fi
+start_main_ps
 
 while true; do
   eval "$(nc -lp "$CTL_PORT")" || true
