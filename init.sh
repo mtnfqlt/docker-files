@@ -2,8 +2,6 @@
 
 printf '\033[1;32m%s\033[0m\n' "$0"
 
-#!/bin/bash -e
-
 ctl_port=54321
 main_ps='apache2-foreground'
 
