@@ -36,14 +36,20 @@ restart_main_ps() {
   start_main_ps
 }
 
-disable_xdebug() {
-  docker-php-ext-enable xdebug
+disable_php_mod() {
+  local mod "\$1"
+
+  docker-php-ext-enable \$mod
   restart_main_ps
+  php -m | grep -i "\$mod"
 }
 
 disable_xdebug() {
-  rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+  local mod "\$1"
+
+  rm -f "/usr/local/etc/php/conf.d/docker-php-ext-\$mod.ini"
   restart_main_ps
+  php -m | grep -i "\$mod"
 }
 
 trap exec_on_exit EXIT
