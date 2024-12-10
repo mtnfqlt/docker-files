@@ -39,7 +39,7 @@ trap exec_on_exit EXIT
 start
 
 while true; do
-  eval "$(nc -lp \$ctl_port)" || true
+  eval "\$(nc -lp \$ctl_port)" || true
 done
 EOT
 
