@@ -18,15 +18,15 @@ exec \$main_ps &
 main_pid=\$!
 echo "\$main_pid"
 
-while true; do
-  sleep 1
+# while true; do
+#   sleep 1
 
-  if ! pgrep "\$main_pid"; then
-    exec \$main_ps &
-    main_pid=\$!
-    echo "\$main_pid"
-  fi
-done
+#   if ! pgrep "\$main_pid"; then
+#     exec \$main_ps &
+#     main_pid=\$!
+#     echo "\$main_pid"
+#   fi
+# done
 EOT
 
 chmod 700 $init_script
