@@ -5,6 +5,6 @@ EXPOSE $port_list
 WORKDIR /srv
 ADD ./ ./
 RUN ./setup.sh "$setup_list"
-ENV CTL_PORT=$CTL_PORT
-ENV MAIN_PS=$MAIN_PS
+ENV CTL_PORT=54321
+ENV MAIN_PS=apache2-foreground
 ENTRYPOINT ["./init.sh"]
