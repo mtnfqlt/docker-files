@@ -1,20 +1,11 @@
 #!/bin/bash -e
 
 arg_list=$(echo "$@" | sed "s/ /|/g;s/--/ /g;s/'//g")
-#arg_list="$@"
 
 for arg in $arg_list; do
   variable=$(echo "$arg" | cut -d'=' -f1)
   value=$(echo "$arg" | cut -d'=' -f2 | sed 's/|/ /g;s/^ *//g;s/ *$//g')
   echo "$variable"
   echo "$value"
+  eval "$variable='$value'"
 done
-
-# for arg in $arg_list; do
-#   variable=$(echo "$arg" | cut -d'|' -f1)
-#   value=$(echo "$arg" | cut -d'|' -f2- | sed 's/|/ /' | sed 's/[[:space:]]*$//')
-#   #eval "$variable='$value'"
-# done
-
-# echo "$arg_list"
-# exit
