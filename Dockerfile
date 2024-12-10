@@ -5,6 +5,5 @@ EXPOSE $port_list $ctl_port
 WORKDIR /srv
 ADD ./ ./
 RUN ./setup.sh "$setup_list"
-ENV CTL_PORT=$ctl_port
-ENV MAIN_PS=$main_ps
+ENV CTL_PORT=$ctl_port MAIN_PS=$main_ps
 ENTRYPOINT ["./init.sh"]
