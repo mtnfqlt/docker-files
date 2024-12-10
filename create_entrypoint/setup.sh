@@ -44,7 +44,7 @@ disable_php_mod() {
   php -m | grep -i "\$mod"
 }
 
-disable_xdebug() {
+disable_php_mod() {
   local mod "\$1"
 
   rm -f "/usr/local/etc/php/conf.d/docker-php-ext-\$mod.ini"
