@@ -1,9 +1,9 @@
 #!/bin/bash -e
 
-#arg_list=$(echo "$@" | sed 's/ /|/g' | sed 's/=/ /')
+arg_list=$(echo "$@" | sed 's/ /|/g' | sed 's/=/ /')
 #arg_list="$@"
 
-for arg in "$@"; do
+for arg in "$arg_list"; do
   echo "$arg"
 done
 
