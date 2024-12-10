@@ -9,7 +9,7 @@ source ./include.src
 
 # shellcheck disable=SC2154
 cat > $init_script << EOT
-exec "$main_ps"
+exec $main_ps
 EOT
 
 chmod 700 $init_script
