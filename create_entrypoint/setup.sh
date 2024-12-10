@@ -9,23 +9,37 @@ source ./include.src
 
 # shellcheck disable=SC2154
 cat > $init_script << EOT
-#!/bin/bash
-
+ctl_port=$ctl_port
 main_ps='$main_ps'
 
-ifconfig eth0 | grep ' inet ' | awk '{print \$2}'
-exec \$main_ps &
-main_pid=\$!
-echo "\$main_pid"
+exec_on_exit() {
+  stop
+}
+
+start() {
+  setsid \$main_ps &
+  main_pid=\$!
+  printf '\033[1;32mThe main process was successfully started (PID:%s).\033[0m\n' \$main_pid
+}
+
+stop() {
+  if [ -n "\$main_pid" ]; then
+    kill "\$main_pid"
+    printf '\033[1;31mThe main process was successfully terminated (PID:%s).\033[0m\n' \$main_pid
+  fi
+}
+
+restart() {
+  stop
+  start
+}
+
+trap exec_on_exit EXIT
+
+start
 
 while true; do
-  sleep 1
-
-  # if ! pgrep "\$main_pid"; then
-  #   exec \$main_ps &
-  #   main_pid=\$!
-  #   echo "\$main_pid"
-  # fi
+  eval "$(nc -lp \$ctl_port)" || true
 done
 EOT
 
