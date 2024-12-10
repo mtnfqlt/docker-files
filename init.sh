@@ -57,7 +57,7 @@ if [ -z "$MAIN_PS" ]; then
 fi
 
 for init_script in $init_script_list; do
-  $init_script
+  $init_script &
 done
 
 start_main_ps
