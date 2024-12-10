@@ -7,7 +7,7 @@ source ./include.src
 
 # shellcheck disable=SC2154
 echo "$list"
-apt-get install -y --no-install-recommends "$list" \
+apt-get install -y --no-install-recommends $list \
   dnsutils \
   iproute2 \
   iputils-ping \
