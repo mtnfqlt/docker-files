@@ -1,6 +1,11 @@
 #!/bin/bash -e
 
-arg_list=$(echo "$@" | sed 's/ /|/g' | sed 's/--/ /')
+#arg_list=$(echo "$@" | sed 's/ /|/g' | sed 's/--/ /')
+arg_list="$@"
+
+for arg in $arg_list; do
+  echo "$arg"
+done
 
 # for arg in $arg_list; do
 #   variable=$(echo "$arg" | cut -d'|' -f1)
@@ -8,5 +13,5 @@ arg_list=$(echo "$@" | sed 's/ /|/g' | sed 's/--/ /')
 #   #eval "$variable='$value'"
 # done
 
-echo "$arg_list"
-exit
+# echo "$arg_list"
+# exit
