@@ -38,7 +38,7 @@ restart() {
 
 trap exec_on_exit EXIT
 
-ip=$(ifconfig eth0 | grep ' inet ' | awk '{print \$2}')
+ip=\$(ifconfig eth0 | grep ' inet ' | awk '{print \$2}')
 start
 echo "\$ip:\$ctl_port"
 
