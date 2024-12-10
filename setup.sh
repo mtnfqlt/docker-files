@@ -13,7 +13,11 @@ apt-get update
 apt-get full-upgrade -y
 apt-get install -y --no-install-recommends apt-utils jq
 
-for setup in $(echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | sed "s/  */ /g;s/ /|/g"); do
+setup_list=$(echo "$setup_list" | \
+              jq -r 'to_entries[] | if .value == null then "\(.key)" else "\(.key) \(.value)' | \
+              sed "s/  */ /g;s/ /|/g")
+
+for setup in $setup_list; do
   dir=$(echo "$setup" | cut -d'|' -f1)
   arg_list=$(echo "$setup" | cut -d'|' -f2- | sed 's/|/ /g')
   "./$dir/setup.sh" "$arg_list"
