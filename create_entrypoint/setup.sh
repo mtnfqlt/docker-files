@@ -15,7 +15,7 @@ ctl_port=$ctl_port
 main_ps='$main_ps'
 
 exec_on_exit() {
-  stop
+  stop_main_ps
 }
 
 start_main_ps() {
@@ -32,8 +32,8 @@ stop_main_ps() {
 }
 
 restart_main_ps() {
-  stop
-  start
+  stop_main_ps
+  start_main_ps
 }
 
 trap exec_on_exit EXIT
