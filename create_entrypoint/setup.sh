@@ -27,7 +27,7 @@ start() {
 stop() {
   if [ -n "\$main_pid" ]; then
     kill "\$main_pid"
-    printf '\033[1;31mThe main process was successfully terminated (PID:%s).\033[0m\n' \$main_pid
+    printf '\033[1;31mThe main process was terminated (PID:%s).\033[0m\n' \$main_pid
   fi
 }
 
@@ -38,7 +38,9 @@ restart() {
 
 trap exec_on_exit EXIT
 
+ip=$(ifconfig eth0 | grep ' inet ' | awk '{print \$2}')
 start
+echo "\$ip:\$ctl_port"
 
 while true; do
   eval "\$(nc -lp \$ctl_port)" || true
