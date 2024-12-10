@@ -53,6 +53,7 @@ init_script_list=$(find ./init.d -maxdepth 1 -type f -name '*.sh' | sort -V)
 
 if [ -z "$MAIN_PS" ]; then
   MAIN_PS=$(echo "$init_script_list" | tail -n -1)
+  export MAIN_PS
   init_script_list=$(echo "$init_script_list" | head -n -1)
 fi
 
