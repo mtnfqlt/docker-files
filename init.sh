@@ -49,7 +49,7 @@ setup_script='/mnt/setup.sh'
 if [ -f $setup_script ]; then $setup_script; fi
 cd "$work_dir"
 
-for file in ./init.d/*; do
+for file in $(find ./init.d -type f -name '*.sh' | sort -h); do
   $file
 done
 
