@@ -6,17 +6,6 @@ printf '\033[1;32m%s\033[0m\n' "$0"
 source ./include.src
 
 # shellcheck disable=SC2154
-echo "$list"
-echo "$@"
-
-while [ $# -gt 0 ]; do
-    echo "Arg: $1"
-    shift
+for mod in $list; do
+  eval pecl install "$mod"
 done
-echo "Po ciklo: $@"
-
-pecl install redis-6.1.0
-
-# for mod in $list; do
-#   eval pecl install "$mod"
-# done

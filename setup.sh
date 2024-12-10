@@ -13,15 +13,5 @@ apt-get install -y --no-install-recommends apt-utils jq
 for setup in $(echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | sed 's/^ *//;s/  */ /g;s/ *$//;s/ /|/g'); do
   dir=$(echo "$setup" | cut -d'|' -f1)
   arg_list=$(echo "$setup" | cut -d'|' -f2- | sed 's/|/ /g')
-  echo "$dir"
-  echo "$arg_list"
-
-  #"./$dir/setup.sh" "$arg"
+  "./$dir/setup.sh" "$arg_list"
 done
-
-# | while read -r ddir zarg; do
-#   #"./$dir/setup.sh" "$arg"
-#   echo "$ddir"
-#   echo "$zarg"
-#   "$ddir" $zarg
-# done
