@@ -9,6 +9,8 @@ source ./include.src
 
 # shellcheck disable=SC2154
 cat > $init_script << EOT
+#!/bin/bash -e
+
 ctl_port=$ctl_port
 main_ps='$main_ps'
 
