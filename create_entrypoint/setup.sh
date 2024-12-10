@@ -27,7 +27,7 @@ start_main_ps() {
 stop_main_ps() {
   if [ -n "\$main_pid" ]; then
     kill "\$main_pid"
-    printf '\033[1;31mThe main process was terminated (PID:%s).\033[0m\n' \$main_pid
+    printf '\033[1;33mThe main process was terminated (PID:%s).\033[0m\n' \$main_pid
   fi
 }
 
@@ -41,7 +41,6 @@ enable_php_mod() {
 
   docker-php-ext-enable "\$mod"
   restart_main_ps
-  php -m
 }
 
 disable_php_mod() {
@@ -49,7 +48,6 @@ disable_php_mod() {
 
   rm -f "/usr/local/etc/php/conf.d/docker-php-ext-\$mod.ini"
   restart_main_ps
-  php -m
 }
 
 trap exec_on_exit EXIT
