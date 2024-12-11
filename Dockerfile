@@ -1,6 +1,6 @@
 ARG image
 FROM $image
-ARG port_list ctl_port=54321 main_ps setup_list
+ARG port_list ctl_port=54321 command setup_list
 EXPOSE $expose $ctl_port
 WORKDIR /srv
 ADD ./ ./
