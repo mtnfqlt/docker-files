@@ -3,6 +3,7 @@
 printf '\033[1;32m%s\033[0m\n' "$0"
 
 work_dir=$(dirname "$(realpath "$0")")
+echo "$@"
 
 exec_on_exit() {
   stop_cmd
