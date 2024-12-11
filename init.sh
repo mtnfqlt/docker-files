@@ -41,7 +41,7 @@ disable_php_mod() {
 trap exec_on_exit EXIT
 
 cd "$work_dir"
-echo "$(ifconfig eth0 | grep ' inet ' | awk '{print $2}'):$CTL_PORT"
+ifconfig eth0 | grep ' inet ' | awk '{print $2}'
 
 setup_script='/mnt/setup.sh'
 if [ -f $setup_script ]; then $setup_script; fi
