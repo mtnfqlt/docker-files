@@ -59,9 +59,7 @@ for init_script in $init_script_list; do
   $init_script &
 done
 
-#start_cmd
-echo "$@"
-setsid bash -c "$*"
+start_cmd
 
 while true; do
   eval "$(nc -lp "$CTL_PORT")" || true
