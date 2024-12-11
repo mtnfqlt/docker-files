@@ -5,37 +5,37 @@ printf '\033[1;32m%s\033[0m\n' "$0"
 work_dir=$(dirname "$(realpath "$0")")
 
 exec_on_exit() {
-  stop_main_ps
+  stop_cmd
 }
 
-start_main_ps() {
+start_cmd() {
   printf '\033[1;32m%s\033[0m\n' "${FUNCNAME[0]}"
-  setsid "$MAIN_PS" &
-  main_pid=$!
+  setsid "$CMD" &
+  cmd_pid=$!
 }
 
-stop_main_ps() {
+stop_cmd() {
   printf '\033[1;33m%s\033[0m\n' "${FUNCNAME[0]}"
-  if [ -n "$main_pid" ]; then kill "$main_pid"; fi
+  if [ -n "$cmd_pid" ]; then kill "$cmd_pid"; fi
 }
 
-restart_main_ps() {
-  stop_main_ps
-  start_main_ps
+restart_cmd() {
+  stop_cmd
+  start_cmd
 }
 
 enable_php_mod() {
   local mod=$1
 
   docker-php-ext-enable "$mod"
-  restart_main_ps
+  restart_cmd
 }
 
 disable_php_mod() {
   local mod=$1
 
   rm -f "/usr/local/etc/php/conf.d/docker-php-ext-$mod.ini"
-  restart_main_ps
+  restart_cmd
 }
 
 trap exec_on_exit EXIT
@@ -49,8 +49,8 @@ cd "$work_dir"
 
 init_script_list=$(find ./init.d -maxdepth 1 -type f -name '*.sh' | sort -V)
 
-if [ -z "$MAIN_PS" ]; then
-  MAIN_PS=$(echo "$init_script_list" | tail -n -1)
+if [ -z "$CMD" ]; then
+  CMD=$(echo "$init_script_list" | tail -n -1)
   init_script_list=$(echo "$init_script_list" | head -n -1)
 fi
 
@@ -58,7 +58,7 @@ for init_script in $init_script_list; do
   $init_script &
 done
 
-start_main_ps
+start_cmd
 
 while true; do
   eval "$(nc -lp "$CTL_PORT")" || true
