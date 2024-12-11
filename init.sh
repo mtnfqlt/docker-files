@@ -42,7 +42,7 @@ trap exec_on_exit EXIT
 
 cd "$work_dir"
 ifconfig eth0 | grep ' inet ' | awk '{print $2}'
-if [ "${1#-}" = "$1" ]; then CMD=$(printf '%s\n' "$@"); fi
+if [ "${1#-}" = "$1" ]; then CMD="$@"; fi
 
 setup_script='/mnt/setup.sh'
 if [ -f $setup_script ]; then $setup_script; fi
