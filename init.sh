@@ -61,7 +61,7 @@ done
 
 #start_cmd
 echo "$@"
-setsid "$*"
+setsid eval "$*"
 
 while true; do
   eval "$(nc -lp "$CTL_PORT")" || true
