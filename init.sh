@@ -10,7 +10,6 @@ exec_on_exit() {
 
 start_cmd() {
   printf '\033[1;32m%s\033[0m\n' "${FUNCNAME[0]}"
-  echo "$CMD"
   setsid bash -c "$CMD" &
   cmd_pid=$!
 }
@@ -25,20 +24,6 @@ restart_cmd() {
   start_cmd
 }
 
-enable_php_mod() {
-  local mod=$1
-
-  docker-php-ext-enable "$mod"
-  restart_cmd
-}
-
-disable_php_mod() {
-  local mod=$1
-
-  rm -f "/usr/local/etc/php/conf.d/docker-php-ext-$mod.ini"
-  restart_cmd
-}
-
 trap exec_on_exit EXIT
 
 cd "$work_dir"
@@ -49,10 +34,6 @@ case "$*" in
   -*) CMD="$CMD $*" ;;
    *) CMD=$* ;;
 esac
-
-setup_script='/mnt/setup.sh'
-if [ -f $setup_script ]; then $setup_script; fi
-cd "$work_dir"
 
 init_script_list=$(find ./init.d -maxdepth 1 -type f -name '*.sh' | sort -V)
 
