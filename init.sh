@@ -46,13 +46,11 @@ ifconfig eth0 | grep ' inet ' | awk '{print $2}'
 
 echo "$CMD"
 
-if [ -n "$*" ]; then
-  if [ "${1#-}" = "$1" ]; then
-    CMD=$*
-  else
-    CMD="$CMD $*"
-  fi
-fi
+case "$*" in
+  '') ;;
+  -*) CMD="$CMD $*" ;;
+   *) CMD=$* ;;
+esac
 
 echo "$CMD"
 
