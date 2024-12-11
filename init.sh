@@ -49,7 +49,7 @@ if [ "${1#-}" = "$1" ]; then
 else
   CMD="$CMD $*"
 fi
-
+echo "$CMD"
 setup_script='/mnt/setup.sh'
 if [ -f $setup_script ]; then $setup_script; fi
 cd "$work_dir"
