@@ -10,7 +10,7 @@ exec_on_exit() {
 
 start_cmd() {
   printf '\033[1;32m%s\033[0m\n' "${FUNCNAME[0]}"
-  setsid "$CMD"
+  setsid bash -c "$CMD"
   cmd_pid=$!
 }
 
@@ -42,7 +42,7 @@ trap exec_on_exit EXIT
 
 cd "$work_dir"
 ifconfig eth0 | grep ' inet ' | awk '{print $2}'
-if [ "${1#-}" = "$1" ]; then CMD=$(eval "$*"); fi
+if [ "${1#-}" = "$1" ]; then CMD=$*; fi
 
 setup_script='/mnt/setup.sh'
 if [ -f $setup_script ]; then $setup_script; fi
