@@ -11,7 +11,7 @@ exec_on_exit() {
 start_cmd() {
   printf '\033[1;32m%s\033[0m\n' "${FUNCNAME[0]}"
   setsid "$CMD" &
-  cmd_pid=$!
+  # cmd_pid=$!
 }
 
 stop_cmd() {
