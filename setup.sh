@@ -11,7 +11,12 @@ cd "$work_dir"
 echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 apt-get update
 apt-get full-upgrade -y
-apt-get install -y --no-install-recommends apt-utils jq
+
+apt-get install -y --no-install-recommends \
+  apt-utils \
+  jq \
+  netcat-traditional \
+  net-tools
 
 for setup in $(echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | sed "s/  */ /g;s/ /|/g"); do
   dir=$(echo "$setup" | cut -d'|' -f1)
