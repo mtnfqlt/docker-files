@@ -44,15 +44,11 @@ trap exec_on_exit EXIT
 cd "$work_dir"
 ifconfig eth0 | grep ' inet ' | awk '{print $2}'
 
-echo "$CMD"
-
 case "$*" in
   '') ;;
   -*) CMD="$CMD $*" ;;
    *) CMD=$* ;;
 esac
-
-echo "$CMD"
 
 setup_script='/mnt/setup.sh'
 if [ -f $setup_script ]; then $setup_script; fi
