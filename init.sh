@@ -44,10 +44,12 @@ trap exec_on_exit EXIT
 cd "$work_dir"
 ifconfig eth0 | grep ' inet ' | awk '{print $2}'
 
-if [ "${1#-}" != "$1" ]; then
-  CMD="$CMD $*"
-else
+echo "$CMD"
+
+if [ "${1#-}" = "$1" ]; then
   CMD=$*
+else
+  CMD="$CMD $*"
 fi
 
 echo "$CMD"
