@@ -3,7 +3,6 @@
 printf '\033[1;32m%s\033[0m\n' "$0"
 
 work_dir=$(dirname "$(realpath "$0")")
-echo "$@"
 
 exec_on_exit() {
   stop_cmd
@@ -38,6 +37,11 @@ disable_php_mod() {
   rm -f "/usr/local/etc/php/conf.d/docker-php-ext-$mod.ini"
   restart_cmd
 }
+
+if [ "${1#-}" = "$1" ]; then
+  "$@"
+  exit
+fi
 
 trap exec_on_exit EXIT
 
