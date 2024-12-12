@@ -46,7 +46,7 @@ for init_script in $init_script_list; do
   $init_script &
 done
 
-start_cmd
+if [ -n "$CMD" ]; then start_cmd; fi
 
 while true; do
   eval "$(nc -lp "$CTL_PORT")" || true
