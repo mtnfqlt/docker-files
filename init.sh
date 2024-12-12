@@ -8,7 +8,9 @@ cd "$work_dir"
 ifconfig eth0 | grep ' inet ' | awk '{print $2}'
 
 echo "$MAIN_INIT"
-echo "$@"
+$MAIN_INIT &
+echo "$*"
+"$*" &
 
 
 
