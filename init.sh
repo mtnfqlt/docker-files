@@ -7,7 +7,8 @@ work_dir=$(dirname "$(realpath "$0")")
 cd "$work_dir"
 ifconfig eth0 | grep ' inet ' | awk '{print $2}'
 
-echo "$CMD"
+echo "$MAIN_INIT"
+echo "$@"
 
 
 
