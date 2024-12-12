@@ -10,10 +10,8 @@ exec_on_exit() {
 
 start_cmd() {
   printf '\033[1;32m%s\033[0m\n' "${FUNCNAME[0]}"
-  echo "$CMD"
-  $CMD &
+  exec $CMD &
   cmd_pid=$!
-  echo $cmd_pid
 }
 
 stop_cmd() {
@@ -36,6 +34,17 @@ case "$*" in
   -*) CMD="$CMD $*" ;;
    *) CMD=$* ;;
 esac
+
+init_script_list=$(find ./init.d -maxdepth 1 -type f -name '*.sh' | sort -V)
+
+if [ -z "$CMD" ]; then
+  CMD=$(echo "$init_script_list" | tail -n -1)
+  init_script_list=$(echo "$init_script_list" | head -n -1)
+fi
+
+for init_script in $init_script_list; do
+  exec $init_script &
+done
 
 start_cmd
 
