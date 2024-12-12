@@ -51,6 +51,8 @@ done
 
 start_cmd
 
+if ! $EN_RCTL; then nc_param_str='-s 127.0.0.1'; fi
+
 while true; do
-  eval "$(nc -lp "$CTL_PORT")" || true
+  eval "$(nc "$nc_param_str" -lp "$RCTL_PORT")" || true
 done
