@@ -52,7 +52,7 @@ done
 start_cmd
 
 bind_ip='127.0.0.1'
-if [ "$EN_RCTL" = true ]; then bind_ip=''; fi
+if [ "$EN_RCTL" = true ]; then bind_ip='0.0.0.0'; fi
 
 while true; do
   eval "$(nc -l "$bind_ip" -p "$RCTL_PORT")" || true
