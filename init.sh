@@ -51,9 +51,9 @@ done
 
 start_cmd
 
-nc_param_str='-s 127.0.0.1'
-if [ "$EN_RCTL" = true ]; then nc_param_str=''; fi
+bind_ip='127.0.0.1'
+if [ "$EN_RCTL" = true ]; then bind_ip=''; fi
 
 while true; do
-  eval "$(nc "$nc_param_str" -lp "$RCTL_PORT")" || true
+  eval "$(nc -l "$bind_ip" -p "$RCTL_PORT")" || true
 done
