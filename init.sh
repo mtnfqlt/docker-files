@@ -47,7 +47,7 @@ if [ -n "$*" ]; then MAIN_INIT="$*"; fi
 start_main_init
 
 bind_ip='127.0.0.1'
-if [ "$EN_RCTL" = true ]; then bind_ip=''; fi
+if [ "$ENABLE_RCTL" = true ]; then bind_ip=''; fi
 
 while true; do
   eval "$(nc -l $bind_ip -p "$RCTL_PORT")" || true
