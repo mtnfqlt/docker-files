@@ -12,8 +12,8 @@ $MAIN_INIT &
 echo "$*"
 "$@" &
 
-
-
+if [ -n "$*" ]; then MAIN_INIT="$*"; fi
+$MAIN_INIT &
 
 
 # exec_on_exit() {
