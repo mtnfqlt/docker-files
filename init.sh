@@ -20,6 +20,10 @@ stop_cmd() {
   if [ -n "$cmd_pid" ]; then
     printf '\033[1;33m%s\033[0m\n' "${FUNCNAME[0]}"
     kill "$cmd_pid"
+
+    while kill -0 "$cmd_pid" 2>/dev/null; do
+      sleep 1
+    done
   fi
 }
 
