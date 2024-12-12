@@ -6,4 +6,5 @@ WORKDIR /srv
 ADD ./ ./
 RUN ./setup.sh "$setup_list"
 ENV EN_RCTL=$enable_rctl RCTL_PORT=$rctl_port CMD=$command
+#ENTRYPOINT ["./init.sh"]
 CMD [$command]
