@@ -1,12 +1,9 @@
 #!/bin/bash -e
 
 arg_list=$(echo "$@" | sed "s/ /|/g;s/--/ /g;s/'//g")
-init_script_dir='./init.d'
 
 for arg in $arg_list; do
   variable=$(echo "$arg" | cut -d'=' -f1 | sed 's/-/_/g')
   value=$(echo "$arg" | cut -d'=' -f2 | sed 's/|/ /g;s/^ *//g;s/ *$//g')
   eval "$variable='$value'"
 done
-
-mkdir -p $init_script_dir

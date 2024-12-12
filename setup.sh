@@ -6,6 +6,7 @@ work_dir=$(dirname "$(realpath "$0")")
 setup_list="$1"
 
 cd "$work_dir"
+mkdir -p ./init.d
 
 # Sets debconf to use non-interactive mode for package installation
 echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
