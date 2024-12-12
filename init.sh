@@ -4,12 +4,29 @@ printf '\033[1;32m%s\033[0m\n' "$0"
 
 work_dir=$(dirname "$(realpath "$0")")
 
+exec_on_exit() {
+  stop_cmd
+}
+
 start_cmd() {
   printf '\033[1;32m%s\033[0m\n' "${FUNCNAME[0]}"
   echo "$CMD"
   $CMD &
-  echo $!
+  cmd_pid=$!
+  echo $cmd_pid
 }
+
+stop_cmd() {
+  printf '\033[1;33m%s\033[0m\n' "${FUNCNAME[0]}"
+  if [ -n "$cmd_pid" ]; then kill "$cmd_pid"; fi
+}
+
+restart_cmd() {
+  stop_cmd
+  start_cmd
+}
+
+trap exec_on_exit EXIT
 
 cd "$work_dir"
 ifconfig eth0 | grep ' inet ' | awk '{print $2}'
