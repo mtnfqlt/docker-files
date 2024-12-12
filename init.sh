@@ -37,10 +37,10 @@ esac
 
 init_script_list=$(find ./init.d -maxdepth 1 -type f -name '*.sh' | sort -V)
 
-if [ -z "$CMD" ]; then
-  CMD=$(echo "$init_script_list" | tail -n -1)
-  init_script_list=$(echo "$init_script_list" | head -n -1)
-fi
+# if [ -z "$CMD" ]; then
+#   CMD=$(echo "$init_script_list" | tail -n -1)
+#   init_script_list=$(echo "$init_script_list" | head -n -1)
+# fi
 
 for init_script in $init_script_list; do
   $init_script &
