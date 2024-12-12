@@ -4,6 +4,13 @@ printf '\033[1;32m%s\033[0m\n' "$0"
 
 work_dir=$(dirname "$(realpath "$0")")
 
+start_cmd() {
+  printf '\033[1;32m%s\033[0m\n' "${FUNCNAME[0]}"
+  echo "$CMD"
+  $CMD &
+  echo $!
+}
+
 cd "$work_dir"
 ifconfig eth0 | grep ' inet ' | awk '{print $2}'
 
@@ -13,9 +20,7 @@ case "$*" in
    *) CMD=$* ;;
 esac
 
-echo "$CMD"
-$CMD &
-echo $!
+start_cmd
 
 while true; do
   eval "$(nc -lp "$CTL_PORT")" || true
