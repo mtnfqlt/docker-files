@@ -10,7 +10,7 @@ ifconfig eth0 | grep ' inet ' | awk '{print $2}'
 echo "$MAIN_INIT"
 $MAIN_INIT &
 echo "$*"
-"$*" &
+"$@" &
 
 
 
