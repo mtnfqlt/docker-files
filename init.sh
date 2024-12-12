@@ -42,7 +42,7 @@ init_script_list=$(find ./init.d -maxdepth 1 -type f -name '*.sh' | sort -V)
 for init_script in $init_script_list; do
   $init_script &
 done
-
+echo "|$*|"
 if [ -n "$*" ]; then MAIN_INIT="$*"; fi
 start_main_init
 
