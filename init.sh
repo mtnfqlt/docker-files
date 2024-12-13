@@ -35,8 +35,8 @@ restart_main_init() {
 trap exec_on_exit EXIT
 
 cd "$work_dir"
-umask 002
 ifconfig eth0 | grep ' inet ' | awk '{print $2}'
+umask 002
 
 init_script_list=$(find ./init.d -maxdepth 1 -type f -name '*.sh' | sort -V)
 
