@@ -17,3 +17,5 @@ if [ -n "$(find ./ -maxdepth 0 -empty)" ]; then
 fi
 
 chmod -R g+rw ./
+curl -sSL 'https://getcomposer.org/download/latest-2.x/composer.phar' > /usr/local/bin/composer
+chmod a+x /usr/local/bin/composer
