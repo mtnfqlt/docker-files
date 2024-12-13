@@ -32,11 +32,15 @@ restart_main_init() {
   start_main_init
 }
 
+get_srvice_ip() {
+  local service=$1
+
+  host "$service" | awk '{print $4}' | grep '^[1-9]' || true
+}
+
 trap exec_on_exit EXIT
 
 cd "$work_dir"
-ifconfig eth0 | grep ' inet ' | awk '{print $2}'
-
 init_script_list=$(find ./init.d -maxdepth 1 -type f -name '*.sh' | sort -V)
 
 for init_script in $init_script_list; do
@@ -46,8 +50,22 @@ done
 if [ -n "$*" ]; then MAIN_INIT="$*"; fi
 start_main_init
 
-umask 002
-if [ -n "$REPO_URL" ]; then ./make.sh; fi
+if [ -n "$REPO_URL" ]; then
+  umask 002
+  ./make.sh
+  umask 022
+ fi
+
+if [ "$PRINT_SUMMARY" = 'true' ]; then
+  for service in apache mysql php-fpm; do
+    ip=$(get_service_ip $service)
+    if [ -n "$ip" ]; then  echo "$service $ip"; fi
+  done
+
+  echo
+  echo "http://$(get_service_ip http)"
+  echo "ssh $(getent passwd 1000)@$(ifconfig eth0 | grep ' inet ' | awk '{print $2}')"
+fi
 
 bind_ip='127.0.0.1'
 if [ "$ENABLE_RCTL" = true ]; then bind_ip=''; fi
