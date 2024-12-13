@@ -32,5 +32,5 @@ if [ -n "$(find ./ -maxdepth 0 -empty)" ]; then
     fi
   fi
 
-  printf '\033[1;32mInitialization will not be performed because the ./src directory is not empty..\033[0m\n'
+  printf '\033[1;32mInitialization will not be performed because the ./src directory is not empty.\033[0m\n'
 fi
