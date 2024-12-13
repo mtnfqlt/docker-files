@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-printf '\033[1;32m%s\033[0m\n' "$1"
+printf '\033[1;32m%s\033[0m\n' "$0"
 
 work_dir='/home/project/src'
 
