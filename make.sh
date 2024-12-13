@@ -8,7 +8,8 @@ mkdir -p $work_dir
 cd $work_dir
 
 if [ -n "$(find ./ -maxdepth 0 -empty)" ]; then
-  if [ -n "$REPO_URL" ]; then
-    echo "$REPO_URL"
+  if [ -n "$REPO_URL" ]; then git clone "$REPO_URL" ./
+    if [ -n "$BRANCH" ]; then git checkout "$BRANCH"; fi
+    if [ -n "$INIT_SCRIPT" ]; then $INIT_SCRIPT; fi
   fi
 fi
