@@ -35,7 +35,7 @@ authorized_keys_file='$authorized_keys_file'
 cd "\$work_dir"
 rm -f \$authorized_keys_file
 find $ssh_dir -maxdepth 1 -type f -name '*.pub' -exec cat {} + >> \$authorized_keys_file
-sed -i 's/^#umask 022$/umask 022/g' /home/$login_user/.profile
+sed -i 's/^#umask 022$/umask 002/g' /home/$login_user/.profile
 exec /usr/sbin/sshd -Def /etc/ssh/sshd_config
 EOT
 
