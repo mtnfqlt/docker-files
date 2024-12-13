@@ -15,8 +15,10 @@ if [ -n "$(find ./ -maxdepth 0 -empty)" ]; then
 
     if [ -n "$INIT_SCRIPT" ]; then
       init_begin_time=$(date +%s)
+      set +e
       sudo -u $login_user "$INIT_SCRIPT"
       exit_code=$?
+      set -e
 
       if [ $exit_code -eq 0 ]; then
         chmod -R g+rw ./
