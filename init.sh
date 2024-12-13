@@ -37,14 +37,14 @@ trap exec_on_exit EXIT
 cd "$work_dir"
 ifconfig eth0 | grep ' inet ' | awk '{print $2}'
 
-if [ -n "$*" ]; then MAIN_INIT="$*"; fi
-start_main_init
-
 init_script_list=$(find ./init.d -maxdepth 1 -type f -name '*.sh' | sort -V)
 
 for init_script in $init_script_list; do
   $init_script &
 done
+
+if [ -n "$*" ]; then MAIN_INIT="$*"; fi
+start_main_init
 
 bind_ip='127.0.0.1'
 if [ "$ENABLE_RCTL" = true ]; then bind_ip=''; fi
