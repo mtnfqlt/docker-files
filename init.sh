@@ -32,7 +32,7 @@ restart_main_init() {
   start_main_init
 }
 
-get_srvice_ip() {
+get_service_ip() {
   local service=$1
 
   host "$service" | awk '{print $4}' | grep '^[1-9]' || true
