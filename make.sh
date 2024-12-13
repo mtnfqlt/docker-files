@@ -5,22 +5,12 @@ printf '\033[1;32m%s\033[0m\n' "$0"
 work_dir='/home/project/src'
 
 mkdir -p $work_dir
-sudo chown project:project $work_dir
 cd $work_dir
+chown project:project ./
 
 if [ -n "$(find ./ -maxdepth 0 -empty)" ]; then
-  sudo apt-get install -y --no-install-recommends git
-  # shellcheck disable=SC2153
-  repo_url=$(sudo -E echo "$REPO_URL")
-
-  if [ -n "$repo_url" ]; then git clone "$repo_url" ./
-    # shellcheck disable=SC2153
-    branch=$(sudo -E echo "$BRANCH")
-    if [ -n "$branch" ]; then git checkout "$branch"; fi
-    # shellcheck disable=SC2153
-    init_script=$(sudo -E echo "$INIT_SCRIPT")
-    if [ -n "$init_script" ]; then $init_script; fi
+  if [ -n "$REPO_URL" ]; then sudo -Eu project git clone "$REPO_URL" ./
+    if [ -n "$BRANCH" ]; then sudo -Eu project git checkout "$BRANCH"; fi
+    if [ -n "$INIT_SCRIPT" ]; then sudo -Eu project "$INIT_SCRIPT"; fi
   fi
-
-  sudo apt-get clean -y
 fi
