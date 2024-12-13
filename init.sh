@@ -52,7 +52,7 @@ start_main_init
 
 if [ -n "$REPO_URL" ]; then
   umask 002
-  ./make.sh
+  ./mkapp.sh
   umask 022
  fi
 
