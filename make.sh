@@ -6,9 +6,9 @@ work_dir='/home/project/src'
 
 mkdir -p $work_dir
 cd $work_dir
-echo "$REPO_URL"
-if [ -z "$(ls -a ./)" ]; then
+
+if [ -n "$(find ./ -maxdepth 0 -empty)" ]; then
   if [ -n "$REPO_URL" ]; then
-    echo aaaaa
+    echo "$REPO_URL"
   fi
 fi
