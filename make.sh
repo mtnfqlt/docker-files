@@ -10,10 +10,16 @@ cd $work_dir
 
 if [ -n "$(find ./ -maxdepth 0 -empty)" ]; then
   sudo apt-get install -y --no-install-recommends git
+  # shellcheck disable=SC2153
+  repo_url=$(sudo echo "$REPO_URL")
 
-  if [ -n "$REPO_URL" ]; then git clone "$REPO_URL" ./
-    if [ -n "$BRANCH" ]; then git checkout "$BRANCH"; fi
-    if [ -n "$INIT_SCRIPT" ]; then $INIT_SCRIPT; fi
+  if [ -n "$repo_url" ]; then git clone "$repo_url" ./
+    # shellcheck disable=SC2153
+    branch=$(sudo echo "$BRANCH")
+    if [ -n "$branch" ]; then git checkout "$branch"; fi
+    # shellcheck disable=SC2153
+    init_script=$(sudo echo "$INIT_SCRIPT")
+    if [ -n "$init_script" ]; then $init_script; fi
   fi
 
   sudo apt-get clean -y
