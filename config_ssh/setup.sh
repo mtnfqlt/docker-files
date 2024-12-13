@@ -31,11 +31,13 @@ printf '\033[1;32m%s\033[0m\n' "\$0"
 
 work_dir=\$(dirname "\$(realpath "\$0")")
 authorized_keys_file='$authorized_keys_file'
+login_user='$login_user'
 
 cd "\$work_dir"
 rm -f \$authorized_keys_file
 find $ssh_dir -maxdepth 1 -type f -name '*.pub' -exec cat {} + >> \$authorized_keys_file
-sed -i 's/^#umask 022$/umask 002/g' /home/$login_user/.profile
+sed -i 's/^#umask 022$/umask 002/g' /home/\$login_user/.profile
+usermod -aG www-data \$login_user
 exec /usr/sbin/sshd -Def /etc/ssh/sshd_config
 EOT
 
