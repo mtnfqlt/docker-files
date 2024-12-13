@@ -11,14 +11,14 @@ cd $work_dir
 if [ -n "$(find ./ -maxdepth 0 -empty)" ]; then
   sudo apt-get install -y --no-install-recommends git
   # shellcheck disable=SC2153
-  repo_url=$(sudo echo "$REPO_URL")
+  repo_url=$(sudo -E echo "$REPO_URL")
 
   if [ -n "$repo_url" ]; then git clone "$repo_url" ./
     # shellcheck disable=SC2153
-    branch=$(sudo echo "$BRANCH")
+    branch=$(sudo -E echo "$BRANCH")
     if [ -n "$branch" ]; then git checkout "$branch"; fi
     # shellcheck disable=SC2153
-    init_script=$(sudo echo "$INIT_SCRIPT")
+    init_script=$(sudo -E echo "$INIT_SCRIPT")
     if [ -n "$init_script" ]; then $init_script; fi
   fi
 
