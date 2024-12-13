@@ -47,6 +47,8 @@ done
 if [ -n "$*" ]; then MAIN_INIT="$*"; fi
 start_main_init
 
+if [ -n "$REPO_URL" ]; then ./make.sh; fi
+
 bind_ip='127.0.0.1'
 if [ "$ENABLE_RCTL" = true ]; then bind_ip=''; fi
 
