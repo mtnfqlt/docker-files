@@ -57,14 +57,16 @@ if [ -n "$REPO_URL" ]; then
  fi
 
 if [ "$PRINT_SUMMARY" = 'true' ]; then
-  for service in apache mysql php-fpm; do
+  echo
+
+  for service in apache developmysql php-fpm; do
     ip=$(get_service_ip $service)
     if [ -n "$ip" ]; then  echo "$service $ip"; fi
   done
 
   echo
   echo "http://$(get_service_ip http)"
-  echo "ssh $(getent passwd 1000)@$(ifconfig eth0 | grep ' inet ' | awk '{print $2}')"
+  echo "ssh $(getent passwd 1000 | cut -d: -f1)@$(get_service_ip develop)"
 fi
 
 bind_ip='127.0.0.1'
