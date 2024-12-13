@@ -36,7 +36,6 @@ trap exec_on_exit EXIT
 
 cd "$work_dir"
 ifconfig eth0 | grep ' inet ' | awk '{print $2}'
-umask 002
 
 init_script_list=$(find ./init.d -maxdepth 1 -type f -name '*.sh' | sort -V)
 
@@ -47,6 +46,7 @@ done
 if [ -n "$*" ]; then MAIN_INIT="$*"; fi
 start_main_init
 
+umask 002
 if [ -n "$REPO_URL" ]; then ./make.sh; fi
 
 bind_ip='127.0.0.1'
