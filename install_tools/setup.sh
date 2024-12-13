@@ -12,6 +12,6 @@ eval apt-get install -y --no-install-recommends "$list" \
   iproute2 \
   iputils-ping \
   mc \
-  p7zip-full \
   procps \
+  unzip \
   wget
