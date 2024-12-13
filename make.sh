@@ -5,7 +5,7 @@ printf '\033[1;32m%s\033[0m\n' "$0"
 work_dir='/home/project/src'
 
 mkdir -p $work_dir
-chown project:project $work_dir
+sudo chown project:project $work_dir
 cd $work_dir
 
 if [ -n "$(find ./ -maxdepth 0 -empty)" ]; then
