@@ -7,7 +7,7 @@ work_dir="/home/$login_user/src"
 
 mkdir -p $work_dir
 cd $work_dir
-chown $login_user:$login_user ./
+chown "$login_user:$login_user" ./
 
 if [ -n "$(find ./ -maxdepth 0 -empty)" ]; then
   if [ -n "$REPO_URL" ]; then sudo -u $login_user git clone "$REPO_URL" ./
