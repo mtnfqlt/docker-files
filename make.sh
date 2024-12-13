@@ -6,10 +6,9 @@ login_user='project'
 work_dir="/home/$login_user/src"
 
 exec_on_exit() {
-  if [ $? -ne 0 ]; then
-    printf '\033[1;31mInitialization error!\033[0m\n'
-    exit 0
-  fi
+  if [ $? -ne 0 ]; then printf '\033[1;31mProject initialization error!\033[0m\n'; fi
+  ifconfig eth0 | grep ' inet ' | awk '{print $2}'
+  exit 0
 }
 
 trap exec_on_exit EXIT
