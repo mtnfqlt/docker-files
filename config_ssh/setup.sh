@@ -10,8 +10,12 @@ useradd $login_user --comment 'Project' --create-home --shell /bin/bash
 usermod -aG sudo $login_user
 echo "$login_user ALL=(ALL) NOPASSWD:ALL" > "/etc/sudoers.d/$login_user"
 chmod 440 /etc/sudoers.d/$login_user
+usermod -aG www-data $login_user
 
-ssh_dir=/home/$login_user/.ssh
+home_dir="/home/$login_user"
+sed -i 's/^#umask 022$/umask 002/g' $home_dir/.profile
+
+ssh_dir=$home_dir/.ssh
 mkdir -p $ssh_dir
 chmod 700 $ssh_dir
 
@@ -36,8 +40,6 @@ login_user='$login_user'
 cd "\$work_dir"
 rm -f \$authorized_keys_file
 find $ssh_dir -maxdepth 1 -type f -name '*.pub' -exec cat {} + >> \$authorized_keys_file
-sed -i 's/^#umask 022$/umask 002/g' /home/\$login_user/.profile
-usermod -aG www-data \$login_user
 exec /usr/sbin/sshd -Def /etc/ssh/sshd_config
 EOT
 
