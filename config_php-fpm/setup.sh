@@ -9,10 +9,3 @@ login_user='project'
 useradd $login_user --comment 'Project' --create-home --shell /bin/bash
 usermod -aG www-data $login_user
 usermod -aG $login_user www-data
-
-cat > /etc/profile.d/php-fpm << EOT
-php-fpm() {
-  umask 002
-  exec /usr/sbin/php-fpm "\$@"
-}
-EOT
