@@ -6,7 +6,7 @@ login_user='project'
 work_dir="/home/$login_user/src"
 
 exec_on_exit() {
-  if [ $? -ne 0 ]; then printf '\033[1;31m./make.sh\033[0m\n'; fi
+  if [ $? -ne 0 ]; then printf '\033[1;31m%s\033[0m\n' "$0"; fi
   ifconfig eth0 | grep ' inet ' | awk '{print $2}'
   exit 0
 }
