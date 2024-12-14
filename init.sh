@@ -49,7 +49,7 @@ done
 
 if [ -n "$*" ]; then MAIN_INIT="$*"; fi
 start_main_init
-sleep 3
+sleep 1
 
 if [ -n "$REPO_URL" ]; then
   umask 002
@@ -62,11 +62,15 @@ if [ "$PRINT_SUMMARY" = 'true' ]; then
 
   for service in apache develop mysql php-fpm; do
     ip=$(get_service_ip $service)
-    if [ -n "$ip" ]; then  echo "$service $ip"; fi
+
+    if [ -n "$ip" ]; then
+      echo "$service $ip"
+      if nc -z "$ip" 80; then http_host="$ip"; fi
+    fi
   done
 
   echo
-  echo "http://$(get_service_ip http)"
+  echo "http://$http_host"
   echo "ssh $(getent passwd 1000 | cut -d: -f1)@$(get_service_ip develop)"
   echo
 fi
