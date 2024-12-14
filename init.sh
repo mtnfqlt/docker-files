@@ -49,6 +49,7 @@ done
 
 if [ -n "$*" ]; then MAIN_INIT="$*"; fi
 start_main_init
+sleep 3
 
 if [ -n "$REPO_URL" ]; then
   umask 002
@@ -57,7 +58,6 @@ if [ -n "$REPO_URL" ]; then
  fi
 
 if [ "$PRINT_SUMMARY" = 'true' ]; then
-  sleep 3
   echo
 
   for service in apache develop mysql php-fpm; do
