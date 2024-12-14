@@ -12,35 +12,31 @@ send() {
   local cmd_list=$1
   local service=$2
 
-  echo "$cmd_list" | nc -q1 "$service" $rctl_port
+  echo -e "$cmd_list" | nc -q1 "$service" $rctl_port
+}
+
+xdebug() {
+  local state=$1
+
+  case $state in
+    enable)
+      cmd="docker-php-ext-enable $php_ext"
+    ;;
+    disable)
+      cmd="rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
+    ;;
+  esac
+
+  cmd_list="echo ${FUNCNAME[0]} $state\n$cmd\nrestart_main_init"
+  send "$cmd_list" php-fpm
 }
 
 # shellcheck disable=SC2154
 for php_ext in $enable_php_ext; do
-  case $php_ext in
-    xdebug)
-      cmd_list="
-echo enable $php_ext
-docker-php-ext-enable $php_ext
-restart_main_init
-php -m | grep $php_ext"
-      send "$cmd_list" php-fpm
-    ;;
-    *) ;;
-  esac
+  eval "$php_ext" enable
 done
 
 # shellcheck disable=SC2154
 for php_ext in $disable_php_ext; do
-  case $php_ext in
-    xdebug)
-      cmd_list="
-echo disable $php_ext
-rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-restart_main_init
-php -m | grep $php_ext"
-      send "$cmd_list" php-fpm
-    ;;
-    *) ;;
-  esac
+  eval "$php_ext" disable
 done
