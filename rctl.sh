@@ -17,6 +17,7 @@ send() {
 
 xdebug() {
   local state=$1
+  local cmd
 
   case $state in
     enable)
@@ -27,8 +28,7 @@ xdebug() {
     ;;
   esac
 
-  cmd_list="echo ${FUNCNAME[0]} $state\n$cmd\nrestart_main_init"
-  send "$cmd_list" php-fpm
+  send "$cmd\nrestart_main_init" php-fpm
 }
 
 # shellcheck disable=SC2154
