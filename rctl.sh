@@ -21,7 +21,7 @@ xdebug() {
 
   case $state in
     enable)
-      cmd="docker-php-ext-enable $php_ext"
+      cmd="docker-php-ext-enable ${FUNCNAME[0]}"
       $cmd
     ;;
     disable)
@@ -31,6 +31,8 @@ xdebug() {
   esac
 
   send "$cmd\nrestart_main_init" php-fpm
+  send "php -m | grep xdebug" php-fpm
+  php -m | grep xdebug
 }
 
 # shellcheck disable=SC2154
