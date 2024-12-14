@@ -8,16 +8,35 @@ source ./include.src
 
 rctl_port=54321
 
+send() {
+  local cmd_list=$1
+  local service=$2
+
+  echo "$cmd_list" | nc -q1 "$service" $rctl_port
+}
+
 # shellcheck disable=SC2154
 for php_ext in $enable_php_ext; do
-  cat << EOT | nc -q1 php-fpm $rctl_port
-echo enable $php_ext
-EOT
+  case $php_ext in
+    xdebug)
+      cmd_list='
+echo enable xdebug
+echo enable xdebug'
+      send "$cmd_list" php-fpm
+    ;;
+    *) ;;
+  esac
 done
 
 # shellcheck disable=SC2154
 for php_ext in $disable_php_ext; do
-  cat << EOT | nc -q1 php-fpm $rctl_port
-echo disable $php_ext
-EOT
+  case $php_ext in
+    xdebug)
+      cmd_list='
+echo disable xdebug
+echo disable xdebug'
+      send "$cmd_list" php-fpm
+    ;;
+    *) ;;
+  esac
 done
