@@ -65,13 +65,13 @@ if [ "$PRINT_SUMMARY" = 'true' ]; then
 
     if [ -n "$ip" ]; then
       echo "$service $ip"
-      if nc -z "$ip" 80; then http_host="$ip"; fi
+      if nc -z "$ip" 80; then http_ip="$ip"; fi
     fi
   done
 
   echo
   echo "ssh $(getent passwd 1000 | cut -d: -f1)@$(get_service_ip develop)"
-  echo "http://$http_host"
+  echo "http://$http_ip"
   echo
 fi
 

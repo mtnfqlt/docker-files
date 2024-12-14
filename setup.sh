@@ -19,7 +19,7 @@ apt-get install -y --no-install-recommends \
   netcat-traditional \
   net-tools
 
-for setup in $(echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | sed "s/  */ /g;s/ /|/g"); do
+for setup in $(echo "$setup_list" | jq -r 'to_entries[] | "\(.key) \(.value)"' | sed 's/  */ /g;s/ /|/g'); do
   dir=$(echo "$setup" | cut -d'|' -f1)
   arg_list=$(echo "$setup" | cut -d'|' -f2- | sed 's/|/ /g')
   "./$dir/setup.sh" "$arg_list"
