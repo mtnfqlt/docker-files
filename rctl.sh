@@ -18,10 +18,11 @@ send() {
 xdebug() {
   local state=$1
   local cmd
+  local php_ext=${FUNCNAME[0]}
 
   case $state in
     enable)
-      cmd="docker-php-ext-enable ${FUNCNAME[0]}"
+      cmd="docker-php-ext-enable $php_ext"
       $cmd
     ;;
     disable)
