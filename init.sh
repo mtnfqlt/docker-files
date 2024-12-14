@@ -59,7 +59,7 @@ if [ -n "$REPO_URL" ]; then
 if [ "$PRINT_SUMMARY" = 'true' ]; then
   echo
 
-  for service in apache developmysql php-fpm; do
+  for service in apache develop pmysql php-fpm; do
     ip=$(get_service_ip $service)
     if [ -n "$ip" ]; then  echo "$service $ip"; fi
   done
