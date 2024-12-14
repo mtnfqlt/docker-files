@@ -32,6 +32,12 @@ restart_main_init() {
   start_main_init
 }
 
+get_service_ip() {
+  local service=$1
+
+  host "$service" | awk '{print $4}' | grep '^[1-9]' || true
+}
+
 trap exec_on_exit EXIT
 
 cd "$work_dir"
@@ -55,17 +61,16 @@ if [ "$PRINT_SUMMARY" = 'true' ]; then
   echo
 
   for service in apache develop mysql php-fpm; do
-    ip=$(host "$service" | awk '{print $4}' | grep '^[1-9]' || true)
+    ip=$(get_service_ip $service)
 
     if [ -n "$ip" ]; then
       echo "$service $ip"
-      if nc -z "$ip" 22; then ssh_host="$ip"; fi
       if nc -z "$ip" 80; then http_host="$ip"; fi
     fi
   done
 
   echo
-  echo "ssh $(getent passwd 1000 | cut -d: -f1)@$ssh_host"
+  echo "ssh $(getent passwd 1000 | cut -d: -f1)@$(get_service_ip develop)"
   echo "http://$http_host"
   echo
 fi
