@@ -19,9 +19,11 @@ send() {
 for php_ext in $enable_php_ext; do
   case $php_ext in
     xdebug)
-      cmd_list='
-echo enable xdebug
-echo enable xdebug'
+      cmd_list="
+echo enable $php_ext
+docker-php-ext-enable $php_ext
+restart_main_init
+php -m | grep $php_ext"
       send "$cmd_list" php-fpm
     ;;
     *) ;;
@@ -32,9 +34,11 @@ done
 for php_ext in $disable_php_ext; do
   case $php_ext in
     xdebug)
-      cmd_list='
-echo disable xdebug
-echo disable xdebug'
+      cmd_list="
+echo disable $php_ext
+docker-php-ext-disable $php_ext
+restart_main_init
+php -m | grep $php_ext"
       send "$cmd_list" php-fpm
     ;;
     *) ;;
