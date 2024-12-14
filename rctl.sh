@@ -10,7 +10,6 @@ rpctl_port=54321
 # shellcheck disable=SC2154
 for php_ext in $enable_php_ext; do
 cat << EOT | nc -q1 php-fpm $rpctl_port
-start_main_init
 echo enable $php_ext
 EOT
 done
