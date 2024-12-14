@@ -36,7 +36,7 @@ for php_ext in $disable_php_ext; do
     xdebug)
       cmd_list="
 echo disable $php_ext
-docker-php-ext-disable $php_ext
+rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
 restart_main_init
 php -m | grep $php_ext"
       send "$cmd_list" php-fpm
