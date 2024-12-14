@@ -57,6 +57,7 @@ if [ -n "$REPO_URL" ]; then
  fi
 
 if [ "$PRINT_SUMMARY" = 'true' ]; then
+  sleep 3
   echo
 
   for service in apache develop mysql php-fpm; do
