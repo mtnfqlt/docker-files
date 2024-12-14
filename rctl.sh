@@ -22,9 +22,11 @@ xdebug() {
   case $state in
     enable)
       cmd="docker-php-ext-enable $php_ext"
+      $cmd
     ;;
     disable)
       cmd="rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
+      $cmd
     ;;
   esac
 
