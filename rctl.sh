@@ -8,16 +8,32 @@ source ./include.src
 
 rctl_port=54321
 
+exec_on_exit() {
+  if [ $? -ne 0 ]; then printf '\033[1;31m%s\033[0m\n' "$0"; fi
+}
+
 send() {
   local cmd=$1
   local service=$2
+  local count=1
 
-  echo -e "$cmd" | nc -q1 "$service" $rctl_port
+  while ! echo -e "$cmd" | nc -q1 "$service" $rctl_port 2> /dev/null; do
+    if [ $count -eq 10 ]; then exit 1; fi
+    sleep 0.5
+    count=$((++ count))
+  done
 }
 
 print_php_ext_status() {
   local ext=$1
-  local cmd="if php -i | grep -q ^$ext.; then status=enabled; else status=disabled; fi; echo $ext \$status"
+  local cmd="
+if php -i | grep -q ^$ext.; then
+  status='enabled'
+else
+  status='disabled'
+fi
+
+printf '\033[1;32m$ext %s\033[0m\n' \"\$status\""
 
   eval "$cmd"
   send "$cmd" php-fpm
@@ -32,17 +48,20 @@ toggle_php_ext() {
   case $state in
     enable)
       cmd="docker-php-ext-enable --ini-name=$ini $ext"
-      sudo "$cmd"
+      eval sudo "$cmd"
     ;;
     disable)
       cmd="rm -f $ini"
-      sudo "$cmd"
+      eval sudo "$cmd"
     ;;
+    *) ;;
   esac
 
   send "$cmd\nrestart_main_init" php-fpm
   print_php_ext_status "$ext"
 }
+
+trap exec_on_exit EXIT
 
 # shellcheck disable=SC2154
 for ext in $enable_php_ext; do
