@@ -9,39 +9,47 @@ source ./include.src
 rctl_port=54321
 
 send() {
-  local cmd_list=$1
+  local cmd=$1
   local service=$2
 
-  echo -e "$cmd_list" | nc -q1 "$service" $rctl_port
+  echo -e "$cmd" | nc -w 10 -q 1 "$service" $rctl_port
+}
+
+print_php_ext_status() {
+  local ext=$1
+  local cmd="if php -i | grep -q ^$ext.; then status=enabled; else status=disabled; fi; echo $ext \$status"
+
+  eval "$cmd"
+  send "$cmd" php-fpm
 }
 
 xdebug() {
   local state=$1
   local cmd
-  local php_ext=${FUNCNAME[0]}
+  local ext=${FUNCNAME[0]}
+  local ini="/usr/local/etc/php/conf.d/docker-php-ext-$ext.ini"
 
   case $state in
     enable)
-      cmd="docker-php-ext-enable $php_ext"
-      $cmd
+      cmd="docker-php-ext-enable --ini-name=$ini $ext"
+      sudo "$cmd"
     ;;
     disable)
-      cmd="rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini"
-      $cmd
+      cmd="rm -f $ini"
+      sudo "$cmd"
     ;;
   esac
 
   send "$cmd\nrestart_main_init" php-fpm
-  send "php -m | grep xdebug" php-fpm
-  php -m | grep xdebug
+  print_php_ext_status "$ext"
 }
 
 # shellcheck disable=SC2154
-for php_ext in $enable_php_ext; do
-  eval "$php_ext" enable
+for ext in $enable_php_ext; do
+  eval "$ext" enable
 done
 
 # shellcheck disable=SC2154
-for php_ext in $disable_php_ext; do
-  eval "$php_ext" disable
+for ext in $disable_php_ext; do
+  eval "$ext" disable
 done
