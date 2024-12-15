@@ -64,6 +64,7 @@ if [ "$PRINT_SUMMARY" = 'true' ]; then
   echo "ssh $(getent passwd 1000 | cut -d: -f1)@$gateway_ip$ssh_port_str"
   if [ -n "$HTTP_PORT" ]; then http_port_str=":$HTTP_PORT"; fi
   echo "http://$gateway_ip$http_port_str"
+  if [ -n "$DOMAIN" ]; then echo "http://$DOMAIN$http_port_str"; fi
   echo
 fi
 
