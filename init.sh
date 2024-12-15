@@ -58,24 +58,12 @@ if [ -n "$REPO_URL" ]; then
  fi
 
 if [ "$PRINT_SUMMARY" = 'true' ]; then
-  # echo
-
-  # for service in apache develop mysql php-fpm; do
-  #   ip=$(get_service_ip $service)
-
-  #   if [ -n "$ip" ]; then
-  #     echo "$service $ip"
-  #     if nc -z "$ip" 80; then http_ip="$ip"; fi
-  #   fi
-  # done
-
-  gateway_ip=$(ip route | grep '^default via ' | awk '{print $3}')
-
   echo
-  if [ -n "$SSH_PORT" ]; then port_str=" -p$SSH_PORT"; fi
-  echo "ssh $(getent passwd 1000 | cut -d: -f1)@$gateway_ip$port_str"
-  if [ -n "$HTTP_PORT" ]; then port_str=":$HTTP_PORT"; fi
-  echo "http://$gateway_ip$port_str"
+  gateway_ip=$(ip route | grep '^default via ' | awk '{print $3}')
+  if [ -n "$SSH_PORT" ]; then ssh_port_str=" -p$SSH_PORT"; fi
+  echo "ssh $(getent passwd 1000 | cut -d: -f1)@$gateway_ip$ssh_port_str"
+  if [ -n "$HTTP_PORT" ]; then http_port_str=":$HTTP_PORT"; fi
+  echo "http://$gateway_ip$http_port_str"
   echo
 fi
 
