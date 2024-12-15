@@ -12,7 +12,7 @@ send() {
   local cmd=$1
   local service=$2
 
-  echo -e "$cmd" | nc -w 10 -q 1 "$service" $rctl_port
+  echo -e "$cmd" | nc -q1 "$service" $rctl_port
 }
 
 print_php_ext_status() {
@@ -23,10 +23,10 @@ print_php_ext_status() {
   send "$cmd" php-fpm
 }
 
-xdebug() {
-  local state=$1
+toggle_php_ext() {
+  local ext=$1
+  local state=$2
   local cmd
-  local ext=${FUNCNAME[0]}
   local ini="/usr/local/etc/php/conf.d/docker-php-ext-$ext.ini"
 
   case $state in
@@ -46,10 +46,10 @@ xdebug() {
 
 # shellcheck disable=SC2154
 for ext in $enable_php_ext; do
-  eval "$ext" enable
+  eval toggle_php_ext "$ext" enable
 done
 
 # shellcheck disable=SC2154
 for ext in $disable_php_ext; do
-  eval "$ext" disable
+  eval toggle_php_ext "$ext" disable
 done

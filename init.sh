@@ -79,5 +79,5 @@ bind_ip='127.0.0.1'
 if [ "$ENABLE_RCTL" = true ]; then bind_ip=''; fi
 
 while true; do
-  eval "$(nc -l $bind_ip -p 54321)" || true
+  eval "$(nc -lk $bind_ip -p 54321)" || true
 done
