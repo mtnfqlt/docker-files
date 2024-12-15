@@ -69,11 +69,13 @@ if [ "$PRINT_SUMMARY" = 'true' ]; then
   #   fi
   # done
 
-  gw_ip=$(ip route | grep '^default via ' | awk '{print $3}')
+  gateway_ip=$(ip route | grep '^default via ' | awk '{print $3}')
 
   echo
-  echo "ssh $(getent passwd 1000 | cut -d: -f1)@$gw_ip"
-  echo "http://$gw_ip"
+  if [ -n "$SSH_PORT" ]; then port_str=" -p$SSH_PORT"; fi
+  echo "ssh $(getent passwd 1000 | cut -d: -f1)@$gateway_ip$port_str"
+  if [ -n "$HTTP_PORT" ]; then port_str=":$HTTP_PORT"; fi
+  echo "http://$gateway_ip$port_str"
   echo
 fi
 
