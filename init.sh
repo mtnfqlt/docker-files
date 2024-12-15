@@ -58,20 +58,22 @@ if [ -n "$REPO_URL" ]; then
  fi
 
 if [ "$PRINT_SUMMARY" = 'true' ]; then
+  # echo
+
+  # for service in apache develop mysql php-fpm; do
+  #   ip=$(get_service_ip $service)
+
+  #   if [ -n "$ip" ]; then
+  #     echo "$service $ip"
+  #     if nc -z "$ip" 80; then http_ip="$ip"; fi
+  #   fi
+  # done
+
+  gw_ip=$(ip route | grep '^default via ' | awk '{print $3}')
+
   echo
-
-  for service in apache develop mysql php-fpm; do
-    ip=$(get_service_ip $service)
-
-    if [ -n "$ip" ]; then
-      echo "$service $ip"
-      if nc -z "$ip" 80; then http_ip="$ip"; fi
-    fi
-  done
-
-  echo
-  echo "ssh $(getent passwd 1000 | cut -d: -f1)@$(get_service_ip develop)"
-  echo "http://$http_ip"
+  echo "ssh $(getent passwd 1000 | cut -d: -f1)@$gw_ip"
+  echo "http://$gw_ip"
   echo
 fi
 
