@@ -27,11 +27,12 @@ domain=$(docker compose config | \
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
 
   cmd="
+set -e
 hostname
 cp /etc/hosts /etc/hosts.$(date +%F_%T)
 echo $gateway $domain \#added by $script
 "
-  eval "$cmd"
+  eval "$cmd" || exit 1
   #vm_name='dvm'
 
   # if multipass info $vm_name | grep -q '^State:\s*Running$'; then
