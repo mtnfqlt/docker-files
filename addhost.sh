@@ -6,9 +6,7 @@ work_dir=$(dirname "$(realpath "$1")")
 script=$(realpath "$1")
 
 exec_on_exit() {
-  #if [ $? -ne 0 ]; then
-  echo "$script"
-  #; fi
+  if [ $? -ne 0 ]; then printf '\033[1;31m%s\033[0m\n' "$script"; fi
 }
 
 trap exec_on_exit EXIT
@@ -26,7 +24,7 @@ gateway=$(docker exec "$container" ip route | grep '^default via ' | awk '{print
 domain=$(docker compose config | \
   yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN')
 
-#if [ -n "$gateway" ] && [ -n "$domain" ]; then
+if [ -n "$gateway" ] && [ -n "$domain" ]; then
 
   cmd="
 set -e
@@ -42,4 +40,6 @@ echo $gateway $domain \#added by $script
   # if multipass info $vm_name | grep -q '^State:\s*Running$'; then
   #   multipass exec $vm_name -- sudo bash -c "$cmd"
   # fi
-#fi
+else
+  exit 1
+fi
