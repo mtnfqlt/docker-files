@@ -7,7 +7,7 @@ cur_script=$(realpath "$1")
 prj_config='./docker-compose.yml'
 
 exec_on_exit() {
-  if [ $? -ne 0 ]; then printf '\033[1;31m%s\033[0m\n' "$(basename "$cur_script")"; fi
+  if [ $? -ne 0 ]; then printf '\033[1;31m%s\033[0m\n' "$cur_script"; fi
 }
 
 run_on_dvm() {
@@ -15,7 +15,7 @@ run_on_dvm() {
   local vm_name='dvm'
 
   if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-    multipass exec $vm_name -- sudo bash -ec "$cmd" | tee /dev/tty
+    multipass exec $vm_name -- sudo bash -ec "$cmd" | tee /dev/tty || true
   fi
 }
 
