@@ -27,18 +27,21 @@ domain=$(docker compose config | \
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
 
   cmd="
-set -e
-cp /etc/hosts /etc/hosts.$(date +%F_%T)
-sed -i '/ $domain /d' /etc/hosts
-echo $gateway $domain \#added by $script >> /etc/hosts
-echo $(hostname getent hosts "$domain")
+domain=$domain
+
+cd /etc
+cp ./hosts ./hosts.$(date +%F_%T)
+sed -i '/ \$domain /d' ./hosts
+echo $gateway \$domain \#added by $script >> ./hosts
+hostname
+getent hosts \$domain
 "
 
-  sudo bash -c "$cmd"
+  sudo bash -ec "$cmd"
   vm_name='dvm'
 
   if multipass info $vm_name | grep -q '^State:\s*Running$'; then
-    multipass exec $vm_name -- sudo bash -c "$cmd"
+    multipass exec $vm_name -- sudo bash -ec "$cmd"
   fi
 else
   exit 1
