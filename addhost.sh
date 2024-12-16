@@ -22,7 +22,7 @@ domain=$(docker compose config | \
   yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN')
 
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
-  comment_msg="#added by $1"
+  comment_msg="#added by $(realpath "$1")"
   str="$gateway $domain $comment_msg"
   echo "$str"
 else
