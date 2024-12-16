@@ -14,9 +14,9 @@ run_on_dvm() {
   local cmd="$1"
   local vm_name='dvm'
 echo aaa
-  if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-    multipass exec $vm_name -- sudo bash -ec "$cmd"
-  fi
+  # if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
+  #   multipass exec $vm_name -- sudo bash -ec "$cmd"
+  # fi
   echo aaa
 }
 
@@ -27,7 +27,7 @@ prj_name=$(yq -r '.name' $prj_config)
 if [ -z "$prj_name" ]; then prj_name=$(basename "$$work_dir"); fi
 service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key' $prj_config)
 cmd="docker exec $prj_name-$service-1 ip route"
-route_list=$(run_on_dvm $cmd)
+route_list=$(run_on_dvm "$cmd")
 echo "$route_list"
 
 # if [ -z "$route_list" ]; then route_list=$(bash -ec "$cmd"); fi
