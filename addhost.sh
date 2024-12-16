@@ -28,10 +28,10 @@ if [ -n "$gateway" ] && [ -n "$domain" ]; then
 
   cmd="
 hostname
-cp /etc/hosts /etc/hosts.$(date +%F_%T)
+cp /etc/hosts /etc/hosts.$(date +%F_%T) || exit 1
 echo $gateway $domain \#added by $script
 "
-  eval "$cmd || exit 1"
+  eval "$cmd"
   vm_name='dvm'
 
   if multipass info $vm_name | grep -q '^State:\s*Running$'; then
