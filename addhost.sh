@@ -12,7 +12,7 @@ exec_on_exit() {
 
 run_on_dvm() {
   local cmd="$1"
-  local vm_name='dvm'
+  #local vm_name='dvm'
 echo aaa
   multipass info dvm
 
