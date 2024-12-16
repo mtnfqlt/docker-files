@@ -14,7 +14,7 @@ run_on_dvm() {
   local cmd="$1"
   local vm_name='dvm'
 
-  multipass info $vm_name
+  multipass exec $vm_name -- sudo bash -ec "$1"
 
   # if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
 
