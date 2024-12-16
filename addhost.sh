@@ -36,11 +36,11 @@ domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN'
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
   cmd="
 cd /etc
-sed -i '/ $domain /d' ./hosts
+sed -i.bak '/ $domain /d' ./hosts
 echo $gateway $domain \#added by $cur_script >> ./hosts
 hostname
 getent hosts $domain"
-echo aaa
+
   exec_on_dvm "$cmd"
   echo
   sudo bash -ec "$cmd"
