@@ -33,21 +33,24 @@ if [ -z "$route_list" ]; then route_list=$(eval "$cmd"); fi
 gateway=$(echo "$route_list" | grep '^default via ' | awk '{print $3}')
 domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
 
-if [ -n "$gateway" ] && [ -n "$domain" ]; then
-  cmd="
-cd /etc
-sed -i '/ $domain /d' ./hosts
-echo $gateway $domain \#added by $cur_script >> ./hosts
-hostname
-getent hosts $domain"
+echo "$gateway"
+echo "$domain"
 
-  bash -ec "$cmd"
-  # vm_name='dvm'
+# if [ -n "$gateway" ] && [ -n "$domain" ]; then
+#   cmd="
+# cd /etc
+# sed -i '/ $domain /d' ./hosts
+# echo $gateway $domain \#added by $cur_script >> ./hosts
+# hostname
+# getent hosts $domain"
 
-  # if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-  #   echo
-  #   multipass exec $vm_name -- sudo bash -ec "$cmd"
-  # fi
-else
-  exit 1
-fi
+#   bash -ec "$cmd"
+#   # vm_name='dvm'
+
+#   # if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
+#   #   echo
+#   #   multipass exec $vm_name -- sudo bash -ec "$cmd"
+#   # fi
+# else
+#   exit 1
+# fi
