@@ -35,7 +35,7 @@ getent hosts $domain"
   sudo bash -ec "$cmd"
   vm_name='dvm'
 
-  if multipass info $vm_name | grep -q '^State:\s*Running$'; then
+  if multipas info $vm_name | grep -q '^State:\s*Running$'; then
     echo
     multipass exec $vm_name -- sudo bash -ec "$cmd"
   fi
