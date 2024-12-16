@@ -29,7 +29,7 @@ service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOM
 container="$prj_name-$service-1"
 
 cmd="docker exec $container ip route"
-run_on_dvm "$cmd" 2> /dev/null || true
+run_on_dvm "$cmd" || true
 
 
 # gateway=$(docker exec "$container" ip route | grep '^default via ' | awk '{print $3}')
