@@ -27,7 +27,6 @@ domain=$(docker compose config | \
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
 
   cmd="
-set -e
 hostname
 cp /etc/hosts /etc/hosts.$(date +%F_%T)
 echo $gateway $domain \#added by $script
