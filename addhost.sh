@@ -6,7 +6,9 @@ work_dir=$(dirname "$(realpath "$1")")
 script=$(realpath "$1")
 
 exec_on_exit() {
-  if [ $? -ne 0 ]; then printf '\033[1;31m%s\033[0m\n' "$1"; fi
+  #if [ $? -ne 0 ]; then
+  printf '\033[1;31m%s\033[0m\n' "$1"
+  #; fi
 }
 
 trap exec_on_exit EXIT
