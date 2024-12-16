@@ -10,8 +10,14 @@ service="$(docker compose config | \
   yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key')"
 
 container="$prj_name"-"$service"-1
-aaa=$(docker exec "$container" ip route | grep '^default via ' | awk '{print $3}')
-echo "$aaa"
+gateway_ip=$(docker exec "$container" ip route | grep '^default via ' | awk '{print $3}')
+
+domain="$(docker compose config | \
+  yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .value')"
+
+
+echo "$gateway_ip"
+echo "$domain"
 
 # echo "$prj_name"
 
