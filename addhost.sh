@@ -13,6 +13,8 @@ exec_on_exit() {
 run_on_dvm() {
   local cmd="$1"
   local vm_name='dvm'
+echo aaa
+  multipass info dvm
 
   if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
 
