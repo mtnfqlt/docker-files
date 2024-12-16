@@ -10,7 +10,7 @@ service="$(docker compose config | \
   yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key')"
 
 container="$prj_name"-"$service"-1
-aaa=$(docker exec "$container" ip route)
+aaa=$(docker exec "$container" ip route | grep '^default via ' | awk '{print $3}')
 echo "$aaa"
 
 # echo "$prj_name"
