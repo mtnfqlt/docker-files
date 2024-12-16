@@ -32,10 +32,10 @@ hostname
 cp /etc/hosts /etc/hosts.$(date +%F_%T)
 sed -i '/ $domain /d' /etc/hosts
 echo $gateway $domain \#added by $script >> /etc/hosts
-getent hosts $domain
+#getent hosts $domain
 "
 
-  sudo "$cmd"
+  sudo bash -c "$cmd"
   vm_name='dvm'
 
   if multipass info $vm_name | grep -q '^State:\s*Running$'; then
