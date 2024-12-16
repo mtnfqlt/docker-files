@@ -30,7 +30,7 @@ if [ -n "$gateway" ] && [ -n "$domain" ]; then
 set -e
 hostname
 cp /etc/hosts /etc/hosts.$(date +%F_%T)
-echo >> $gateway $domain \#added by $script
+echo $gateway $domain \#added by $script >> /etc/hosts
 cat /etc/hosts
 "
   #eval "$cmd"
