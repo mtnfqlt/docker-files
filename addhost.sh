@@ -22,7 +22,8 @@ domain=$(docker compose config | \
   yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN')
 
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
-  str="$gateway $domain #added by $work_dir"
+  comment_msg="#added by $0"
+  str="$gateway $domain $comment_msg"
   echo "$str"
 else
   exit 1
