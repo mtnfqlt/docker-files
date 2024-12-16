@@ -2,6 +2,12 @@
 
 work_dir=$(dirname "$(realpath "$0")")
 
+exec_on_exit() {
+  if [ $? -ne 0 ]; then printf '\033[1;31m%s\033[0m\n' "$0"; fi
+}
+
+trap exec_on_exit EXIT
+
 cd "$work_dir"
 prj_name=$(docker compose config | yq -r '.name')
 if [ -z "$prj_name" ]; then prj_name=$(basename "$$work_dir"); fi
@@ -15,8 +21,12 @@ gateway=$(docker exec "$container" ip route | grep '^default via ' | awk '{print
 domain=$(docker compose config | \
   yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN')
 
-echo "$gateway"
-echo "$domain"
+if [ -n "$gateway" ] && [ -n "$domain" ]; then
+  str="$gateway $domain #added by $0"
+  echo "$str"
+else
+  exit 1
+fi
 
 # echo "$prj_name"
 
