@@ -32,9 +32,7 @@ hostname
 cp /etc/hosts /etc/hosts.$(date +%F_%T)
 echo $gateway $domain \#added by $script
 "
-  set -e
-  bash -c "$cmd"
-  echo aaaa
+  eval "$cmd"
   #vm_name='dvm'
 
   # if multipass info $vm_name | grep -q '^State:\s*Running$'; then
