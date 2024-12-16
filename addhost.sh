@@ -24,13 +24,14 @@ gateway=$(docker exec "$container" ip route | grep '^default via ' | awk '{print
 domain=$(docker compose config | \
   yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN')
 
-if [ -n "$gatewa" ] && [ -n "$domain" ]; then
+if [ -n "$gateway" ] && [ -n "$domain" ]; then
 
   cmd="
 set -e
 hostname
 cp /etc/hosts /etc/hosts.$(date +%F_%T)
-echo $gateway $domain \#added by $script
+echo >> $gateway $domain \#added by $script
+cat /etc/hosts
 "
   #eval "$cmd"
   vm_name='dvm'
