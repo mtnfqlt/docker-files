@@ -39,9 +39,9 @@ exit 1
   sudo bash -ec "$cmd"
   vm_name='dvm'
 
-  if multipass info $vm_name | grep -q '^State:\s*Running$'; then
-    multipass exec $vm_name -- sudo bash -ec "$cmd"
-  fi
+  # if multipass info $vm_name | grep -q '^State:\s*Running$'; then
+  #   multipass exec $vm_name -- sudo bash -ec "$cmd"
+  # fi
 else
   exit 1
 fi
