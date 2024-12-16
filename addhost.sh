@@ -13,7 +13,7 @@ exec_on_exit() {
 run_on_dvm() {
   local cmd="$1"
   local vm_name='dvm'
-
+echo aaa
   if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
     multipass exec $vm_name -- sudo bash -ec "$cmd"
   fi
