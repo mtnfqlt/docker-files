@@ -10,7 +10,7 @@ exec_on_exit() {
   if [ $? -ne 0 ]; then printf '\033[1;31m%s\033[0m\n' "$cur_script"; fi
 }
 
-run_on_dvm() {
+exec_on_dvm() {
   local cmd="$1"
   local vm_name='dvm'
 
@@ -28,7 +28,7 @@ prj_name=$(yq -r '.name' $prj_config)
 if [ -z "$prj_name" ]; then prj_name=$(basename "$$work_dir"); fi
 service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key' $prj_config)
 cmd="docker exec $prj_name-$service-1 ip route"
-route_list=$(run_on_dvm "$cmd" 2> /dev/null)
+route_list=$(exec_on_dvm "$cmd" 2> /dev/null)
 if [ -z "$route_list" ]; then route_list=$(eval "$cmd"); fi
 gateway=$(echo "$route_list" | grep '^default via ' | awk '{print $3}')
 domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
@@ -41,7 +41,7 @@ echo $gateway $domain \#added by $cur_script >> ./hosts
 hostname
 getent hosts $domain"
 
-  run_on_dvm "$cmd"
+  exec_on_dvm "$cmd"
   echo
   sudo bash -ec "$cmd"
 else
