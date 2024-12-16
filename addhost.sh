@@ -42,14 +42,7 @@ hostname
 getent hosts $domain"
 
   run_on_dvm "$cmd"
-
-  #sudo bash -ec "$cmd"
-  # vm_name='dvm'
-
-  # if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-  #   echo
-  #   multipass exec $vm_name -- sudo bash -ec "$cmd"
-  # fi
+  sudo bash -ec "$cmd"
 else
   exit 1
 fi
