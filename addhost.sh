@@ -25,12 +25,12 @@ run_on_dvm() {
 
 trap exec_on_exit EXIT
 
-cd "$work_dir"
-prj_name=$(yq -r '.name' $prj_config)
-if [ -z "$prj_name" ]; then prj_name=$(basename "$$work_dir"); fi
-service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key' $prj_config)
-cmd="docker exec $prj_name-$service-1 ip route"
-route_list=$(run_on_dvm "$cmd")
+# cd "$work_dir"
+# prj_name=$(yq -r '.name' $prj_config)
+# if [ -z "$prj_name" ]; then prj_name=$(basename "$$work_dir"); fi
+# service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key' $prj_config)
+# cmd="docker exec $prj_name-$service-1 ip route"
+route_list=$(run_on_dvm)
 echo "$route_list"
 
 # if [ -z "$route_list" ]; then route_list=$(bash -ec "$cmd"); fi
