@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/bash -e
 
 printf '\033[1;32m%s\033[0m\n' "$1"
 
 
 run_on_dvm() {
   multipass info dvm
-  aaa=$(multipass exec dvm -- bash -ec 'ls')
+  aaa=$(multipass exec dvm -- bash -ec 'ls' 2>&1)
   echo "$aaa"
 }
 
