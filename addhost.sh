@@ -15,7 +15,7 @@ run_on_dvm() {
   local vm_name='dvm'
 
   if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-    multipass exec $vm_name -- sudo bash -ec "$cmd" | tee /dev/stderr
+    multipass exec $vm_name -- sudo bash -ec "$cmd" | tee /dev/tty
   fi
 }
 
@@ -28,10 +28,9 @@ service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOM
 cmd="docker exec $prj_name-$service-1 ip route"
 echo aaa
 route_list=$(run_on_dvm "$cmd")
+echo sss
+if [ -z "$route_list" ]; then route_list=$(bash -ec "$cmd"); fi
 echo "$route_list"
-# echo sss
-# if [ -z "$route_list" ]; then route_list=$(bash -ec "$cmd"); fi
-# echo "$route_list"
 
 # gateway=$(docker exec "$container" ip route | grep '^default via ' | awk '{print $3}')
 
