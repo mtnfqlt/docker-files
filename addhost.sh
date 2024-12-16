@@ -28,11 +28,10 @@ if [ -n "$gateway" ] && [ -n "$domain" ]; then
 
   cmd="
 set -e
-hostname
 cp /etc/hosts /etc/hosts.$(date +%F_%T)
 sed -i '/ $domain /d' /etc/hosts
 echo $gateway $domain \#added by $script >> /etc/hosts
-getent hosts $domain
+echo $(hostname getent hosts "$domain")
 "
 
   sudo bash -c "$cmd"
