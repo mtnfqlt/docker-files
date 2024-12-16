@@ -38,7 +38,7 @@ echo $gateway $domain \#added by $script
   vm_name='dvm'
 
   if multipass info $vm_name | grep -q '^State:\s*Running$'; then
-    multipass exec $vm_name -- bash -c "$cmd"
+    multipass exec $vm_name -- sudo bash -c "$cmd"
   fi
 else
   exit 1
