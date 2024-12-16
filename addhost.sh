@@ -32,6 +32,7 @@ hostname
 cp /etc/hosts /etc/hosts.$(date +%F_%T)
 echo $gateway $domain \#added by $script
 "
+  set -e
   bash -c "$cmd"
   #vm_name='dvm'
 
