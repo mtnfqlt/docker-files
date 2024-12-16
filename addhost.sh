@@ -5,7 +5,7 @@ printf '\033[1;32m%s\033[0m\n' "$1"
 
 run_on_dvm() {
   multipass info dvm
-  multipass exec dvm -- bash -c 'ls'
+  multipass exec dvm -- sh -c 'ls'
 }
 
 route_list=$(run_on_dvm)
