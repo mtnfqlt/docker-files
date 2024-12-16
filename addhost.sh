@@ -7,8 +7,7 @@ run_on_dvm() {
   multipass exec dvm -- bash -ec 'uname'
 }
 
-route_list=$(run_on_dvm)
-echo "$route_list"
+run_on_dvm
 
 
 
