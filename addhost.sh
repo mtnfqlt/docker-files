@@ -36,21 +36,21 @@ domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN'
 echo "$gateway"
 echo "$domain"
 
-# if [ -n "$gateway" ] && [ -n "$domain" ]; then
-#   cmd="
-# cd /etc
-# sed -i '/ $domain /d' ./hosts
-# echo $gateway $domain \#added by $cur_script >> ./hosts
-# hostname
-# getent hosts $domain"
+if [ -n "$gateway" ] && [ -n "$domain" ]; then
+  cmd="
+cd /etc
+sed -i '/ $domain /d' ./hosts
+echo $gateway $domain \#added by $cur_script >> ./hosts
+hostname
+getent hosts $domain"
 
-#   bash -ec "$cmd"
-#   # vm_name='dvm'
+  sudo bash -ec "$cmd"
+  # vm_name='dvm'
 
-#   # if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-#   #   echo
-#   #   multipass exec $vm_name -- sudo bash -ec "$cmd"
-#   # fi
-# else
-#   exit 1
-# fi
+  # if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
+  #   echo
+  #   multipass exec $vm_name -- sudo bash -ec "$cmd"
+  # fi
+else
+  exit 1
+fi
