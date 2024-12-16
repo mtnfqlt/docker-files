@@ -4,9 +4,7 @@ printf '\033[1;32m%s\033[0m\n' "$1"
 
 
 run_on_dvm() {
-  multipass info dvm
-  aaa=$(multipass exec dvm -- bash -tec 'ls | grep p')
-  echo "$aaa"
+  multipass exec dvm -- bash -ec 'uname'
 }
 
 route_list=$(run_on_dvm)
