@@ -7,7 +7,7 @@ script=$(realpath "$1")
 
 exec_on_exit() {
   #if [ $? -ne 0 ]; then
-  printf '\033[1;32m%s\033[0m\n' "$1"
+  echo "$1"
   #; fi
 }
 
