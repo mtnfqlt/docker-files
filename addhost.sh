@@ -32,7 +32,21 @@ domain=$(docker compose config | \
   yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN')
 
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
-  add_to_hosts
+  comment_msg="#added by $script"
+  str="$gateway $domain $comment_msg"
+  echo "$str"
+
+  cmd="
+hostname
+echo $str
+"
+
+  eval "$cmd"
+  vm_name='dvm'
+
+  if multipass info $vm_name | grep -q '^State:\s*Running$'; then
+    multipass exec $vm_name -- bash -c "$cmd"
+  fi
 else
   exit 1
 fi
