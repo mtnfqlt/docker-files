@@ -35,7 +35,7 @@ echo $gateway $domain \#added by $script >> /etc/hosts
 getent hosts $domain
 "
 
-  eval sudo "$cmd"
+  sudo "$cmd"
   vm_name='dvm'
 
   if multipass info $vm_name | grep -q '^State:\s*Running$'; then
