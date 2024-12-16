@@ -7,7 +7,7 @@ cur_script=$(realpath "$1")
 prj_config='./docker-compose.yml'
 
 exec_on_exit() {
-  echo mmmm
+  printf '\033[1;31m%s\033[0m\n' "$cur_script"
 }
 
 run_on_dvm() {
