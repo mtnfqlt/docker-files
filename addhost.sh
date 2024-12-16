@@ -31,7 +31,7 @@ domain=$domain
 
 cd /etc
 cp ./hosts ./hosts.$(date +%F_%T)
-sed -i '/ \$domain /d' ./hosts
+sed -i "/ \$domain /d" ./hosts
 echo $gateway \$domain \#added by $script >> ./hosts
 hostname
 getent hosts \$domain
