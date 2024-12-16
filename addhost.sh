@@ -31,7 +31,7 @@ hostname
 backups_dir='/etc/hosts_backups'
 
 mkdir -p \$backups_dir
-cp /etc/hosts \$backups_dir\\$(date +%F_%T)
+cp /etc/hosts \$backups_dir\aaa
 echo $gateway $domain \#added by $script
 "
   eval "$cmd"
