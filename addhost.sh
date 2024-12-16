@@ -14,7 +14,7 @@ run_on_dvm() {
   multipass exec dvm -- ls
 }
 
-trap exec_on_exit EXIT
+#trap exec_on_exit EXIT
 
 # cd "$work_dir"
 # prj_name=$(yq -r '.name' $prj_config)
