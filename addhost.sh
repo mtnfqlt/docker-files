@@ -1,6 +1,5 @@
 #!/bin/bash -e
-echo aaaa
-exit
+
 printf '\033[1;32m%s\033[0m\n' "$1"
 
 work_dir=$(dirname "$(realpath "$1")")
