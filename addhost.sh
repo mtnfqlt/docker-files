@@ -26,14 +26,10 @@ domain=$(docker compose config | \
   yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN')
 
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
-  str="$gateway $domain \#added by $script"
-  echo "$str"
-
   cmd="
 hostname
-echo $str
+echo $gateway $domain \#added by $script
 "
-
   eval "$cmd"
   vm_name='dvm'
 
