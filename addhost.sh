@@ -9,7 +9,7 @@ if [ -z "$prj_name" ]; then prj_name=$(basename "$$work_dir"); fi
 service="$(docker compose config | \
   yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key')"
 
-container="$prj_name"_"$service"-1
+container="$prj_name"-"$service"-1
 docker exec -it "$container" bash -c 'ip route'
 
 # echo "$prj_name"
