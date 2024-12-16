@@ -34,7 +34,7 @@ mkdir -p \$backups_dir
 cp /etc/hosts \$backups_dir\aaa
 echo $gateway $domain \#added by $script
 "
-  eval "$cmd"
+  #eval "$cmd"
   vm_name='dvm'
 
   if multipass info $vm_name | grep -q '^State:\s*Running$'; then
