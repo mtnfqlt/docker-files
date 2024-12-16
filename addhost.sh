@@ -31,13 +31,13 @@ domain=$domain
 
 cd /etc
 cp ./hosts ./hosts.$(date +%F_%T)
-sed -i "/ \$domain /d" ./hosts
+sed -i "/ $domain /d" ./hosts
 echo $gateway \$domain \#added by $script >> ./hosts
 hostname
 getent hosts \$domain
 "
 
-  sudo bash -ec "$cmd"
+  sudo bash -exc "$cmd"
   vm_name='dvm'
 
   if multipass info $vm_name | grep -q '^State:\s*Running$'; then
