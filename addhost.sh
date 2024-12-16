@@ -39,6 +39,7 @@ getent hosts $domain"
     echo
     multipass exec $vm_name -- sudo bash -ec "$cmd"
   fi
+  echo aaaa
 else
   exit 1
 fi
