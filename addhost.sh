@@ -29,7 +29,7 @@ if [ -z "$prj_name" ]; then prj_name=$(basename "$$work_dir"); fi
 service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key' $prj_config)
 cmd="docker exec $prj_name-$service-1 ip route"
 echo aaa
-route_list=$(run_on_dvm "$cmd")
+route_list=$(run_on_dvm "$cmd" 2> dev/null)
 echo "$route_list"
 echo sss
 
