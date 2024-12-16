@@ -32,11 +32,11 @@ hostname
 cp /etc/hosts /etc/hosts.$(date +%F_%T)
 echo $gateway $domain \#added by $script
 "
-  eval "$cmd"
+  #eval "$cmd"
   vm_name='dvm'
 
   if multipass info $vm_name | grep -q '^State:\s*Running$'; then
-    multipass exec $vm_name -- sudo bash -c "$cmd"
+    multipass exec $vm_name -- bash -c "$cmd"
   fi
 else
   exit 1
