@@ -9,6 +9,7 @@ exec_on_exit() {
   #if [ $? -ne 0 ]; then
   printf '\033[1;31m%s\033[0m\n' "$1"
   #; fi
+  echo aaa
 }
 
 trap exec_on_exit EXIT
