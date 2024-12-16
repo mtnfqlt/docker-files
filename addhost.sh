@@ -7,5 +7,5 @@ run_on_dvm() {
   multipass exec dvm -- ls
 }
 
-route_list=$(run_on_dvm)
+route_list=$(run_on_dvm "$cmd")
 echo "$route_list"
