@@ -41,3 +41,4 @@ echo $gateway $domain \#added by $script
 else
   exit 1
 fi
+exit 1
