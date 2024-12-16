@@ -24,7 +24,7 @@ gateway=$(docker exec "$container" ip route | grep '^default via ' | awk '{print
 domain=$(docker compose config | \
   yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN')
 
-if [ -n "$gateway" ] && [ -n "$domain" ]; then
+#if [ -n "$gateway" ] && [ -n "$domain" ]; then
 
   cmd="
 set -e
@@ -40,4 +40,4 @@ echo $gateway $domain \#added by $script
   # if multipass info $vm_name | grep -q '^State:\s*Running$'; then
   #   multipass exec $vm_name -- sudo bash -c "$cmd"
   # fi
-fi
+#fi
