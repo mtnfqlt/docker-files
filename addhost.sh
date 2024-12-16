@@ -19,6 +19,8 @@ run_on_dvm() {
 $cmd
 EOT
   fi
+
+  return $?
 }
 
 trap exec_on_exit EXIT
