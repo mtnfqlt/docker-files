@@ -7,7 +7,7 @@ script=$(realpath "$1")
 
 exec_on_exit() {
   #if [ $? -ne 0 ]; then
-  echo "$1"
+  echo "$script"
   #; fi
 }
 
