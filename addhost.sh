@@ -9,9 +9,7 @@ run_on_dvm() {
   echo "$aaa"
 }
 
-#route_list=$(
-  run_on_dvm
-#  )
+route_list=$(run_on_dvm)
 echo "$route_list"
 
 
