@@ -4,10 +4,11 @@ printf '\033[1;32m%s\033[0m\n' "$1"
 
 
 run_on_dvm() {
-  multipass exec dvm -- bash -ec 'uname'
+  multipass exec dvm -- bash -ec 'uname'  | tee /dev/stderr
 }
 
-run_on_dvm
+route_list=$(run_on_dvm)
+echo "$route_list"
 
 
 
