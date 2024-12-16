@@ -27,7 +27,6 @@ domain=$(docker compose config | \
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
   cmd="
 cd /etc
-cp ./hosts ./hosts.$(date +%F_%T)
 sed -i '/ $domain /d' ./hosts
 echo $gateway $domain \#added by $script >> ./hosts
 hostname
