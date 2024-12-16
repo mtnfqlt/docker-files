@@ -14,7 +14,7 @@ run_on_dvm() {
   local cmd="$1"
   local vm_name='dvm'
 
-  multipass exec $vm_name -- ls
+  multipass exec dvm -- ls
 
   # if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
 
