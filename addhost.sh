@@ -33,9 +33,6 @@ if [ -z "$route_list" ]; then route_list=$(eval "$cmd"); fi
 gateway=$(echo "$route_list" | grep '^default via ' | awk '{print $3}')
 domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
 
-echo "$gateway"
-echo "$domain"
-
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
   cmd="
 cd /etc
