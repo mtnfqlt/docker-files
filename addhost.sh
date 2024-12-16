@@ -6,6 +6,6 @@ if [ -z "$prj_name" ]; then prj_name=$(basename "$(dirname "$(realpath "$0")")")
 
 echo "$prj_name"
 
-network="$prj_name\_default"
+network="$prj_name"_default
 
 echo "$network"
