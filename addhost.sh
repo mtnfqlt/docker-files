@@ -42,7 +42,7 @@ echo $gateway $domain \#added by $cur_script
 hostname
 getent hosts $domain"
 
-  eval sudo "$cmd"
+  bash -ec "$cmd"
   # vm_name='dvm'
 
   # if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
