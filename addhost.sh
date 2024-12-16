@@ -41,9 +41,9 @@ echo $gateway $domain \#added by $cur_script >> ./hosts
 hostname
 getent hosts $domain"
 
-  exec_on_dvm "$cmd"
-  echo
   sudo bash -ec "$cmd"
+  echo
+  exec_on_dvm "$cmd"
 else
   exit 1
 fi
