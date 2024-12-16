@@ -4,7 +4,6 @@ printf '\033[1;32m%s\033[0m\n' "$1"
 
 work_dir=$(dirname "$(realpath "$1")")
 script=$(realpath "$1")
-#backups_dir='/etc/backups'
 
 exec_on_exit() {
   if [ $? -ne 0 ]; then printf '\033[1;31m%s\033[0m\n' "$1"; fi
@@ -26,8 +25,13 @@ domain=$(docker compose config | \
   yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN')
 
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
+
   cmd="
 hostname
+backups_dir='/etc/hosts_backups'
+
+mkdir -p \$backups_dir
+#cp /etc/hosts \$backups_dir\\$(date +%F_%T)
 echo $gateway $domain \#added by $script
 "
   eval "$cmd"
