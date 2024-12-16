@@ -27,7 +27,6 @@ domain=$(docker compose config | \
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
 
   cmd="
-set -e
 cd /etc
 cp ./hosts ./hosts.$(date +%F_%T)
 sed -i '/ $domain /d' ./hosts
