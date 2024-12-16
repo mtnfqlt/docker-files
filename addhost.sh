@@ -39,7 +39,7 @@ cd /etc
 sed -i.bak '/ $domain /d' ./hosts
 echo $gateway $domain \#added by $cur_script >> ./hosts
 hostname
-getent hosts $domain"
+ping -c1 $domain"
 
   sudo bash -ec "$cmd"
   echo
