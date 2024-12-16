@@ -34,6 +34,7 @@ echo $gateway $domain \#added by $script
 "
   set -e
   bash -c "$cmd"
+  echo aaaa
   #vm_name='dvm'
 
   # if multipass info $vm_name | grep -q '^State:\s*Running$'; then
