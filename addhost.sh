@@ -27,6 +27,7 @@ domain=$(docker compose config | \
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
 
   cmd="
+set -e
 cd /etc
 cp ./hosts ./hosts.$(date +%F_%T)
 sed -i '/ $domain /d' ./hosts
@@ -36,7 +37,7 @@ getent hosts $domain
 exit 1
 "
 
-  sudo bash -ec "$cmd"
+  sudo bash -c "$cmd"
   vm_name='dvm'
 
   # if multipass info $vm_name | grep -q '^State:\s*Running$'; then
