@@ -10,12 +10,6 @@ exec_on_exit() {
   if [ $? -ne 0 ]; then printf '\033[1;31m%s\033[0m\n' "$1"; fi
 }
 
-add_to_hosts() {
-  comment_msg="#added by $script"
-  str="$gateway $domain $comment_msg"
-  echo "$str"
-}
-
 trap exec_on_exit EXIT
 
 cd "$work_dir"
@@ -32,8 +26,7 @@ domain=$(docker compose config | \
   yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN')
 
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
-  comment_msg="#added by $script"
-  str="$gateway $domain $comment_msg"
+  str="$gateway $domain #added by $script"
   echo "$str"
 
   cmd="
