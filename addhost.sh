@@ -15,7 +15,7 @@ run_on_dvm() {
   local vm_name='dvm'
 
   if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-    multipass exec $vm_name -- sudo bash -e << EOT
+    multipass exec $vm_name -- bash -e << EOT
 $cmd
 EOT
   fi
@@ -30,7 +30,7 @@ service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOM
 cmd="set -e; docker exec $prj_name-$service-1 ip route"
 route_list=$(run_on_dvm "$cmd" 2> /dev/null)
 echo aaa
-eval sudo "$cmd"
+bash -ec "$cmd"
 if [ -z "$route_list" ]; then route_list=$(bash -ec "$cmd"); fi
 echo "$route_list"
 
