@@ -33,8 +33,8 @@ route_list=$(run_on_dvm "$cmd")
 echo "$route_list"
 echo sss
 
-# if [ -z "$route_list" ]; then route_list=$(bash -ec "$cmd"); fi
-# echo "$route_list"
+if [ -z "$route_list" ]; then route_list=$(bash -ec "$cmd"); fi
+echo "$route_list"
 
 # gateway=$(docker exec "$container" ip route | grep '^default via ' | awk '{print $3}')
 
