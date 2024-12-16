@@ -4,8 +4,10 @@ printf '\033[1;32m%s\033[0m\n' "$1"
 
 
 run_on_dvm() {
+  local aaa='ls'
+
   multipass info dvm
-  multipass exec dvm -- bash < 'ls'
+  multipass exec dvm -- bash < "$aaa"
 }
 
 route_list=$(run_on_dvm)
