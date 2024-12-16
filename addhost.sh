@@ -27,14 +27,12 @@ domain=$(docker compose config | \
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
 
   cmd="
-domain=$domain
-
 cd /etc
 cp ./hosts ./hosts.$(date +%F_%T)
-sed -i "/ $domain /d" ./hosts
-echo $gateway \$domain \#added by $script >> ./hosts
+sed -i '/ $domain /d' ./hosts
+echo $gateway $domain \#added by $script >> ./hosts
 hostname
-getent hosts \$domain
+getent hosts $domain
 "
 
   sudo bash -exc "$cmd"
