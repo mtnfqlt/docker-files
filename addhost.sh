@@ -42,6 +42,7 @@ hostname
 getent hosts $domain"
 
   run_on_dvm "$cmd"
+  echo
   sudo bash -ec "$cmd"
 else
   exit 1
