@@ -9,14 +9,13 @@ if [ -z "$prj_name" ]; then prj_name=$(basename "$$work_dir"); fi
 service="$(docker compose config | \
   yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key')"
 
-container="$prj_name"-"$service"-1
-gateway_ip=$(docker exec "$container" ip route | grep '^default via ' | awk '{print $3}')
+container="$prj_name-$service-1"
+gateway=$(docker exec "$container" ip route | grep '^default via ' | awk '{print $3}')
 
 domain=$(docker compose config | \
   yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN')
 
-
-echo "$gateway_ip"
+echo "$gateway"
 echo "$domain"
 
 # echo "$prj_name"

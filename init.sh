@@ -59,11 +59,11 @@ if [ -n "$REPO_URL" ]; then
 
 if [ "$PRINT_SUMMARY" = 'true' ]; then
   echo
-  gateway_ip=$(ip route | grep '^default via ' | awk '{print $3}')
+  gateway=$(ip route | grep '^default via ' | awk '{print $3}')
   if [ -n "$SSH_PORT" ]; then ssh_port_str=" -p$SSH_PORT"; fi
-  echo "ssh $(getent passwd 1000 | cut -d: -f1)@$gateway_ip$ssh_port_str"
+  echo "ssh $(getent passwd 1000 | cut -d: -f1)@$gateway$ssh_port_str"
   if [ -n "$HTTP_PORT" ]; then http_port_str=":$HTTP_PORT"; fi
-  echo "http://$gateway_ip$http_port_str"
+  echo "http://$gateway$http_port_str"
   if [ -n "$DOMAIN" ]; then echo "http://$DOMAIN$http_port_str"; fi
   echo
 fi
