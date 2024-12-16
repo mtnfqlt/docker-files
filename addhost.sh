@@ -18,7 +18,7 @@ echo aaa
 
   if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
 
-    multipass exec $vm_name -- sudo bash -ec "$cmd"
+    multipass exec $vm_name -- sudo bash -ec "$1"
   echo aaa
   fi
 }
