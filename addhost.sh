@@ -16,11 +16,11 @@ run_on_dvm() {
 echo aaa
   multipass info dvm
 
-  if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
+  # if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
 
-    multipass exec $vm_name -- sudo bash -ec "$1"
-  echo aaa
-  fi
+  #   multipass exec $vm_name -- sudo bash -ec "$1"
+  # echo aaa
+  # fi
 }
 
 trap exec_on_exit EXIT
