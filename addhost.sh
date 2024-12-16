@@ -11,8 +11,8 @@ exec_on_exit() {
 }
 
 run_on_dvm() {
-  local cmd="$1"
-  local vm_name='dvm'
+  #local cmd="$1"
+  #local vm_name='dvm'
 
   multipass exec dvm -- ls
 
