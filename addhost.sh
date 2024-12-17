@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -xe
 
 printf '\033[1;32m%s\033[0m\n' "$1"
 
