@@ -43,13 +43,14 @@ grep ' $domain ' ./hosts"
 
   printf '\033[1;32m'
   echo '----------------------------------------------------------------------------------------------------'
+  printf '\033[0m'
   echo "$vm_name result:"
   if ! exec_on_dvm "$cmd" | grep -E "^$gateway $domain #"; then printf '\033[1;33m%s not running\033[0m\n' "$vm_name"; fi
-  echo '----------------------------------------------------------------------------------------------------'
-  echo "$(hostname) result:"
-  if ! sudo bash -c "$cmd" | grep -E "^$gateway $domain #"; then exit 1; fi
+  printf '\033[1;32m'
   echo '----------------------------------------------------------------------------------------------------'
   printf '\033[0m'
+  echo "$(hostname) result:"
+  if ! sudo bash -c "$cmd" | grep -E "^$gateway $domain #"; then exit 1; fi
 else
   exit 1
 fi
