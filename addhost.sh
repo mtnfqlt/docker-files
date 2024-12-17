@@ -52,7 +52,7 @@ sudo echo $gateway $domain \# Added by $cur_script at $(date +%F' '%T) >> ./host
 grep ' $domain ' ./hosts"
 
   if [[ "$vm_ip" =~ ^[1-9] ]]; then
-    printf '\033[1;32mScript result on %s:\033[0m\n' "$vm_name"
+    printf '\033[1;34mScript result on %s:\033[0m\n' "$vm_name"
     exec_on_dvm "$cmd"
   fi
 
