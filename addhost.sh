@@ -46,7 +46,7 @@ hostname
 grep ' $domain ' ./hosts"
 
   if ! sudo bash -c "$cmd" | grep -E "^$gateway $domain #"; then exit 1; fi
-  if ! exec_on_dvm "$cmd" | grep -E "^$gateway $domain #"; then exit 1; fi
+  exec_on_dvm "$cmd"
 else
   exit 1
 fi
