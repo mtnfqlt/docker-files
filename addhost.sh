@@ -11,17 +11,6 @@ exec_on_exit() {
   if [ $? -ne 0 ]; then printf '\033[1;31m%s\033[0m\n' "$cur_script"; fi
 }
 
-exec_on_dvm() {
-  local cmd="$1"
-  local vm_name='dvm'
-
-  if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-    multipass exec $vm_name -- sudo bash -e << EOT
-$cmd
-EOT
-  fi
-}
-
 trap exec_on_exit EXIT
 
 cd "$work_dir"
@@ -33,9 +22,6 @@ cmd="docker exec $prj_name-$service-1 ip route"
 if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
   route_list=$(multipass exec $vm_name -- bash -ec "$cmd")
 fi
-
-#route_list=$(exec_on_dvm "$cmd" 2> /dev/null)
-
 
 if [ -z "$route_list" ]; then route_list=$(eval "$cmd"); fi
 gateway=$(echo "$route_list" | grep '^default via ' | awk '{print $3}')
@@ -50,8 +36,11 @@ hostname
 grep ' $domain ' ./hosts"
 
   sudo bash -ec "$cmd"
-  echo
-  exec_on_dvm "$cmd"
+
+  if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
+    echo
+    multipass exec $vm_name -- sudo bash -ec "$cmd"
+  fi
 else
   exit 1
 fi
