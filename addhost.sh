@@ -8,7 +8,7 @@ prj_config='./docker-compose.yml'
 vm_name='dvm'
 
 exec_on_exit() {
-  if [ $? -ne 0 ]; then printf '\033[1;31m%s\033[0m\n' "$cur_script"; fi
+  if [ $? -ne 0 ]; then printf '\033[1;31mExiting due to an error!\033[0m\n'; fi
 }
 
 exec_on_dvm(){
