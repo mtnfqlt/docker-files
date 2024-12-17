@@ -41,7 +41,7 @@ if [ -n "$gateway" ] && [ -n "$domain" ]; then
   cmd="
 cd /etc
 sudo sed -i.bak '/ $domain /d' ./hosts
-sudo echo $gateway $domain \#added by $cur_script >> ./hosts
+sudo echo $gateway $domain \#added by $cur_script at $(date +%F_%T) >> ./hosts
 hostname
 grep ' $domain ' ./hosts"
 
