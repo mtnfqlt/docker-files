@@ -21,7 +21,7 @@ cmd="docker exec $prj_name-$service-1 ip route"
 
 if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
   #multipass exec $vm_name -- 'ls'
-  route_list=$(echo 'bash -c ls' | multipass shell)
+  route_list=$(echo 'bash -c "ls"' | multipass shell)
 fi
 
 echo "$route_list"
