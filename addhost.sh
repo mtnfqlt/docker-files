@@ -38,7 +38,7 @@ grep ' $domain ' ./hosts"
 
   if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
     echo
-    echo "$cmd" | multipass shell
+    echo "sudo $cmd" | multipass shell
   fi
 else
   exit 1
