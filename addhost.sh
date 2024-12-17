@@ -15,7 +15,9 @@ exec_on_dvm() {
   local vm_name='dvm'
 
   if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
+    echo aaa
     multipass exec $vm_name -- sudo bash -e << EOT
+    echo bbb
 $cmd
 EOT
   fi
