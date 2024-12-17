@@ -16,7 +16,7 @@ exec_on_dvm(){
 
   ssh -o StrictHostKeyChecking=no \
       -o UserKnownHostsFile=/dev/null \
-      -o LogLevel=ERROR "ubuntu@$vm_ip" "$cmd" < /dev/null
+      -o LogLevel=ERROR "ubuntu@$vm_ip" bash -c "$cmd" < /dev/null
 }
 
 trap exec_on_exit EXIT
