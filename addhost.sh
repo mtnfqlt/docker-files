@@ -36,7 +36,7 @@ else
   if docker > /dev/null 2>&1; then
     route_list=$(eval "$cmd")
   else
-    printf '\033[1;32mDocker was not found on your computer.\033[0m\n'
+    printf '\033[1;31mDocker was not found on your computer.\033[0m\n'
     exit 1
   fi
 fi
