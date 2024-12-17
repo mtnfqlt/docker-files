@@ -31,8 +31,14 @@ vm_ip=$(multipass info $vm_name --format json 2> /dev/null | jq -r ".info.$vm_na
 if [ "$vm_ip" != 'null' ]; then
   route_list=$(exec_on_dvm "$cmd")
 else
-  printf '\033[1;33m%s not running\033[0m\n' "$vm_name"
-  route_list=$(eval "$cmd")
+  printf '\033[1;33mThe virtual machine (%s) is not running on your computer\033[0m\n' "$vm_name"
+
+  if docker; then
+    route_list=$(eval "$cmd")
+  else
+    printf '\033[1;33mdocker was not found on your computer\033[0m\n'
+    exit 1
+  fi
 fi
 
 gateway=$(echo "$route_list" | grep '^default via ' | awk '{print $3}')
