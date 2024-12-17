@@ -45,8 +45,8 @@ sudo echo $gateway $domain \#added by $cur_script >> ./hosts
 hostname
 grep ' $domain ' ./hosts"
 
-  sudo bash -c "$cmd"
-  exec_on_dvm "$cmd"
+  if ! sudo bash -c "$cmd" | grep -E "^$gateway $domain #"; then exit 1; fi
+  if ! exec_on_dvm "$cmd" | grep -E "^$gateway $domain #"; then exit 1; fi
 else
   exit 1
 fi
