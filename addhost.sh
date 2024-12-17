@@ -20,13 +20,10 @@ service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOM
 cmd="docker exec $prj_name-$service-1 ip route"
 
 if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-  #multipass exec $vm_name -- 'ls'
   gateway=$(echo "$cmd" | multipass shell | grep '^default via ' | awk '{print $3}')
 fi
 
-echo "$gateway"
-if [ -z "$route_list" ]; then route_list=$(eval "$cmd"); fi
-gateway=$(echo "$route_list" | grep '^default via ' | awk '{print $3}')
+if [ -z "$gateway" ]; then gateway=$(eval "$cmd" | grep '^default via ' | awk '{print $3}'); fi
 domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
 
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
