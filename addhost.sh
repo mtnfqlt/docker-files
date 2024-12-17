@@ -31,6 +31,7 @@ prj_name=$(yq -r '.name' $prj_config)
 if [ -z "$prj_name" ]; then prj_name=$(basename "$$work_dir"); fi
 service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key' $prj_config)
 cmd="docker exec $prj_name-$service-1 ip route"
+echo 000
 route_list=$(exec_on_dvm "$cmd" 2> /dev/null)
 if [ -z "$route_list" ]; then route_list=$(eval "$cmd"); fi
 gateway=$(echo "$route_list" | grep '^default via ' | awk '{print $3}')
