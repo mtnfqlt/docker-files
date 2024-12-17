@@ -16,7 +16,7 @@ exec_on_dvm(){
 
   ssh -o StrictHostKeyChecking=no \
       -o UserKnownHostsFile=/dev/null \
-      -o LogLevel=ERROR "ubuntu@$vm_ip" "$cmd"
+      -o LogLevel=ERROR "ubuntu@$vm_ip" "$cmd" < /dev/null
 }
 
 trap exec_on_exit EXIT
@@ -29,8 +29,7 @@ cmd="docker exec $prj_name-$service-1 ip route | grep '^default via ' | awk '{pr
 vm_ip=$(multipass info $vm_name --format json 2> /dev/null | jq -r ".info.$vm_name.ipv4[0]")
 
 if [ -n "$vm_ip" ]; then
-  #exec_on_dvm "$cmd"
-    ssh -o StrictHostKeyChecking=no ubuntu@192.168.101.29 ls < /dev/null
+  exec_on_dvm "$cmd"
 else
   gateway=$(eval "$cmd")
 fi
