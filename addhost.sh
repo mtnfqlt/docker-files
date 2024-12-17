@@ -2,8 +2,8 @@
 
 printf '\033[1;32m%s\033[0m\n' "$1"
 
-#work_dir=$(dirname "$(realpath "$1")")
-#cur_script=$(realpath "$1")
+work_dir=$(dirname "$(realpath "$1")")
+cur_script=$(realpath "$1")
 prj_config='./docker-compose.yml'
 vm_name='dvm'
 
@@ -13,14 +13,14 @@ exec_on_exit() {
 
 trap exec_on_exit EXIT
 
-#cd "$work_dir"
+cd "$work_dir"
 prj_name=$(yq -r '.name' $prj_config)
 if [ -z "$prj_name" ]; then prj_name=$(basename "$$work_dir"); fi
 service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key' $prj_config)
 cmd="docker exec $prj_name-$service-1 ip route"
 
 if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-  route_list=$(multipass exec $vm_name -- 'ls')
+  multipass exec $vm_name -- 'ls'
 fi
 echo "$route_list"
 if [ -z "$route_list" ]; then route_list=$(eval "$cmd"); fi
