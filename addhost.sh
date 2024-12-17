@@ -44,7 +44,7 @@ echo $gateway $domain \#added by $cur_script >> ./hosts
 hostname
 grep ' $domain ' ./hosts"
 
-  eval sudo $cmd
+  eval "sudo $cmd"
 #  exec_on_dvm "$cmd"
 else
   exit 1
