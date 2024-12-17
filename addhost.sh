@@ -44,7 +44,7 @@ fi
 gateway=$(echo "$route_list" | grep '^default via ' | awk '{print $3}')
 domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
 
-if [ -n "$gateway" ] && [ -n "$domain" ]; then
+if [[ "$gateway" =~ ^[1-9] ]] && [ -n "$domain" ]; then
   cmd="
 cd /etc
 sudo sed -i.bak '/ $domain /d' ./hosts
