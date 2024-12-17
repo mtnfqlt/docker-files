@@ -29,14 +29,17 @@ cmd="docker exec $prj_name-$service-1 ip route | grep '^default via ' | awk '{pr
 vm_ip=$(multipass info $vm_name --format json 2> /dev/null | jq -r ".info.$vm_name.ipv4[0]")
 
 if [ -n "$vm_ip" ]; then
-  exec_on_dvm "$cmd"
+  #exec_on_dvm "$cmd"
+    ssh -o StrictHostKeyChecking=no \
+      -o UserKnownHostsFile=/dev/null \
+      -o LogLevel=ERROR "ubuntu@$vm_ip" "$cmd"
 else
   gateway=$(eval "$cmd")
 fi
 
 #domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
 
-echo "$gateway"
+#echo "$gateway"
 #echo "$domain"
 
 echo aaa
