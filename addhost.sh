@@ -41,11 +41,15 @@ sudo sed -i.bak '/ $domain /d' ./hosts
 sudo echo $gateway $domain \# Added by $cur_script at $(date +%F' '%T) >> ./hosts
 grep ' $domain ' ./hosts"
 
+  printf '\033[1;32m'
+  echo '----------------------------------------------------------------------------------------------------'
   echo "$vm_name result:"
   if ! exec_on_dvm "$cmd" | grep -E "^$gateway $domain #"; then printf '\033[1;33m%s not running\033[0m\n' "$vm_name"; fi
-  echo
+  echo '----------------------------------------------------------------------------------------------------'
   echo "$(hostname) result:"
   if ! sudo bash -c "$cmd" | grep -E "^$gateway $domain #"; then exit 1; fi
+  echo '----------------------------------------------------------------------------------------------------'
+  printf '\033[0m'
 else
   exit 1
 fi
