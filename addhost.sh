@@ -44,7 +44,7 @@ cd /etc
 sed -i.bak '/ $domain /d' ./hosts
 echo $gateway $domain \#added by $cur_script >> ./hosts
 hostname
-ping -c1 $domain"
+grep '^$gateway $' ./hosts | grep ' $domain '"
 
   sudo bash -ec "$cmd"
   echo
