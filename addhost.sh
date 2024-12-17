@@ -14,7 +14,7 @@ exec_on_exit() {
 exec_on_dvm(){
   local cmd=$1
 
-  if [ -n "$vm_ip" ]; then
+  if [ "$vm_ip" != 'null' ]; then
     ssh -o StrictHostKeyChecking=no \
         -o UserKnownHostsFile=/dev/null \
         -o LogLevel=ERROR "ubuntu@$vm_ip" "sudo bash -c \"$cmd\"" < /dev/null
