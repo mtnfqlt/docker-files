@@ -33,7 +33,7 @@ if [ "$vm_ip" != 'null' ]; then
 else
   printf '\033[1;33mThe virtual machine (%s) is not running on your computer\033[0m\n' "$vm_name"
 
-  if docker; then
+  if docker > /dev/null; then
     route_list=$(eval "$cmd")
   else
     printf '\033[1;33mdocker was not found on your computer\033[0m\n'
