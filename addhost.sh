@@ -34,10 +34,10 @@ else
   gateway=$(eval "$cmd")
 fi
 
-domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
+#domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
 
 echo "$gateway"
-echo "$domain"
+#echo "$domain"
 
 echo aaa
 
