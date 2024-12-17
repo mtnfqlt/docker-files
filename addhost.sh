@@ -16,7 +16,7 @@ exec_on_dvm(){
 
   ssh -o StrictHostKeyChecking=no \
       -o UserKnownHostsFile=/dev/null \
-      -o LogLevel=ERROR "ubuntu@$vm_ip" bash -c "$cmd" < /dev/null
+      -o LogLevel=ERROR "ubuntu@$vm_ip" "$cmd" < /dev/null
 }
 
 trap exec_on_exit EXIT
@@ -39,12 +39,12 @@ domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN'
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
   cmd="
 cd /etc
-sed -i.bak '/ $domain /d' ./hosts
-echo $gateway $domain \#added by $cur_script >> ./hosts
+sudo sed -i.bak '/ $domain /d' ./hosts
+sudo echo $gateway $domain \#added by $cur_script >> ./hosts
 hostname
 grep ' $domain ' ./hosts"
 
-  sudo bash -c "$cmd"
+  eval "$cmd"
   exec_on_dvm "$cmd"
 else
   exit 1
