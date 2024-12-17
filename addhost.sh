@@ -30,11 +30,6 @@ service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOM
 cmd="docker exec $prj_name-$service-1 ip route"
 route_list=$(exec_on_dvm "$cmd" 2> /dev/null)
 if [ -z "$route_list" ]; then route_list=$(eval "$cmd"); fi
-
-echo --------
-echo "$route_list"
-echo --------
-
 gateway=$(echo "$route_list" | grep '^default via ' | awk '{print $3}')
 domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
 
