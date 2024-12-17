@@ -31,12 +31,12 @@ vm_ip=$(multipas info $vm_name --format json 2> /dev/null | jq -r ".info.$vm_nam
 if [[ "$vm_ip" =~ ^[0-9] ]]; then
   route_list=$(exec_on_dvm "$cmd")
 else
-  printf '\033[1;33mThe virtual machine (%s) is not running on your computer\033[0m\n' "$vm_name"
+  printf '\033[1;33mThe virtual machine (%s) is not running on your computer.\033[0m\n' "$vm_name"
 
   if docker > /dev/null 2>&1; then
     route_list=$(eval "$cmd")
   else
-    printf '\033[1;33mdocker was not found on your computer\033[0m\n'
+    printf '\033[1;33mdocker was not found on your computer.\033[0m\n'
     exit 1
   fi
 fi
