@@ -30,7 +30,7 @@ cmd="docker exec $prj_name-$service-1 ip route"
 
 vm_ip=$(multipas info $vm_name --format json | jq -r ".info.$vm_name.ipv4[0]")
 echo "$vm_ip"
-
+echo aaa
 # if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
 #   gateway=$(echo "$cmd" | multipass shell | grep '^default via ' | awk '{print $3}')
 # fi
