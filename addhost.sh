@@ -39,13 +39,13 @@ domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN'
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
   cmd="
 cd /etc
-#sudo sed -i.bak '/ $domain /d' ./hosts
+sudo sed -i.bak '/ $domain /d' ./hosts
 #sudo echo $gateway $domain \#added by $cur_script >> ./hosts
 hostname
 grep ' $domain ' ./hosts"
 
   eval "$cmd"
-  exec_on_dvm "$cmd"
+  #exec_on_dvm "$cmd"
 else
   exit 1
 fi
