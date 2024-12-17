@@ -16,7 +16,7 @@ exec_on_dvm(){
 
   ssh -o StrictHostKeyChecking=no \
       -o UserKnownHostsFile=/dev/null \
-      -o LogLevel=ERROR "ubuntu@$vm_ip" "$cmd" < /dev/null
+      -o LogLevel=ERROR "ubuntu@$vm_ip" sudo bash -c "$cmd" < /dev/null
 }
 
 trap exec_on_exit EXIT
@@ -45,7 +45,7 @@ hostname
 grep ' $domain ' ./hosts"
 
   sudo bash -c "$cmd"
-  #exec_on_dvm "$cmd"
+  exec_on_dvm "$cmd"
 else
   exit 1
 fi
