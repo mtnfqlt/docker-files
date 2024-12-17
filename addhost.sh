@@ -14,9 +14,11 @@ exec_on_exit() {
 exec_on_dvm(){
   local cmd=$1
 
-  ssh -o StrictHostKeyChecking=no \
-      -o UserKnownHostsFile=/dev/null \
-      -o LogLevel=ERROR "ubuntu@$vm_ip" "sudo bash -c \"$cmd\"" < /dev/null
+  if [ -n "$vm_ip" ]; then
+    ssh -o StrictHostKeyChecking=no \
+        -o UserKnownHostsFile=/dev/null \
+        -o LogLevel=ERROR "ubuntu@$vm_ip" "sudo bash -c \"$cmd\"" < /dev/null
+  fi
 }
 
 trap exec_on_exit EXIT
@@ -27,13 +29,8 @@ if [ -z "$prj_name" ]; then prj_name=$(basename "$$work_dir"); fi
 service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key' $prj_config)
 cmd="docker exec $prj_name-$service-1 ip route"
 vm_ip=$(multipass info $vm_name --format json 2> /dev/null | jq -r ".info.$vm_name.ipv4[0]")
-
-if [ -n "$vm_ip" ]; then
-  route_list=$(exec_on_dvm "$cmd")
-else
-  route_list=$(eval "$cmd")
-fi
-
+route_list=$(exec_on_dvm "$cmd")
+if [ -z "$route_list" ]; then route_list=$(eval "$cmd"); fi
 gateway=$(echo "$route_list" | grep '^default via ' | awk '{print $3}')
 domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
 
