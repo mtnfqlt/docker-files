@@ -21,9 +21,9 @@ cmd="docker exec $prj_name-$service-1 ip route"
 
 if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
   #multipass exec $vm_name -- 'ls'
-  echo "$cmd" | multipass shell
+  route_list=$(echo "$cmd" | multipass shell)
 fi
-echo aaa
+
 echo "$route_list"
 if [ -z "$route_list" ]; then route_list=$(eval "$cmd"); fi
 gateway=$(echo "$route_list" | grep '^default via ' | awk '{print $3}')
