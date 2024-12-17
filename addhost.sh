@@ -28,22 +28,18 @@ service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOM
 cmd="docker exec $prj_name-$service-1 ip route | grep '^default via ' | awk '{print \$3}'"
 vm_ip=$(multipass info $vm_name --format json 2> /dev/null | jq -r ".info.$vm_name.ipv4[0]")
 
-echo "$vm_ip"
-
 if [ -n "$vm_ip" ]; then
-  exec_on_dvm "$cmd"
+  gateway=$(exec_on_dvm "$cmd")
 else
-  eval "$cmd"
+  gateway=$(eval "$cmd")
 fi
 
+domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
+
+echo "$gateway"
+echo "$domain"
+
 echo aaa
-
-# if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-#   gateway=$(echo "$cmd" | multipass shell | grep '^default via ' | awk '{print $3}')
-# fi
-
-# if [ -z "$gateway" ]; then gateway=$(eval "$cmd" | grep '^default via ' | awk '{print $3}'); fi
-# domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
 
 # if [ -n "$gateway" ] && [ -n "$domain" ]; then
 #   cmd="
