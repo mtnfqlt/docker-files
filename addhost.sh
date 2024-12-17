@@ -22,10 +22,10 @@ cmd="docker exec $prj_name-$service-1 ip route"
 if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
   gateway=$(echo "$cmd" | multipass shell | grep '^default via ' | awk '{print $3}')
 fi
-echo aaa
+
 if [ -z "$gateway" ]; then gateway=$(eval "$cmd" | grep '^default via ' | awk '{print $3}'); fi
 domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
-
+echo aaa
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
   cmd="
 set -e
