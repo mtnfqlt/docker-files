@@ -25,17 +25,20 @@ cd "$work_dir"
 prj_name=$(yq -r '.name' $prj_config)
 if [ -z "$prj_name" ]; then prj_name=$(basename "$$work_dir"); fi
 service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key' $prj_config)
-cmd="docker exec $prj_name-$service-1 ip route | grep '^default via ' | awk '{print $$3}'"
+cmd="docker exec $prj_name-$service-1 ip route"
 vm_ip=$(multipass info $vm_name --format json 2> /dev/null | jq -r ".info.$vm_name.ipv4[0]")
 
 #cmd='docker ps'
 exec_on_dvm "$cmd"
 
-# if [ -n "$vm_ip" ]; then
-#   gateway=$(exec_on_dvm "$cmd")
-# else
-#   gateway=$(eval "$cmd")
-# fi
+ if [ -n "$vm_ip" ]; then
+  route_list=$(exec_on_dvm "$cmd")
+else
+  route_list=$(eval "$cmd")
+fi
+
+gateway=$(echo "$route_list" | grep '^default via ' | awk '{print $3}')
+echo "$gateway"
 
 # domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
 
