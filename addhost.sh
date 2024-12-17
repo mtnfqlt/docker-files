@@ -11,14 +11,13 @@ exec_on_exit() {
   if [ $? -ne 0 ]; then printf '\033[1;31m%s\033[0m\n' "$cur_script"; fi
 }
 
-# exec_on_dvm(){
-#   local vm_name='dvm'
+exec_on_dvm(){
+  local cmd=$1
 
-#   if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-#     vm_ip
-#     #gateway=$(echo "$cmd" | multipass shell | grep '^default via ' | awk '{print $3}')
-#   fi
-# }
+  ssh -o StrictHostKeyChecking=no \
+      -o UserKnownHostsFile=/dev/null \
+      -o LogLevel=ERROR "ubuntu@$vm_ip" "$cmd" 2> /dev/null
+}
 
 trap exec_on_exit EXIT
 
@@ -28,9 +27,16 @@ if [ -z "$prj_name" ]; then prj_name=$(basename "$$work_dir"); fi
 service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key' $prj_config)
 cmd="docker exec $prj_name-$service-1 ip route"
 
-vm_ip=$(multipas info $vm_name --format json 2> /dev/null | jq -r ".info.$vm_name.ipv4[0]")
-echo "$vm_ip"
+vm_ip=$(multipass info $vm_name --format json 2> /dev/null | jq -r ".info.$vm_name.ipv4[0]")
+
+if [ -n "$vm_ip" ]; then
+  exec_on_dvm "$cmd"
+else
+  eval "$cmd"
+fi
+
 echo aaa
+
 # if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
 #   gateway=$(echo "$cmd" | multipass shell | grep '^default via ' | awk '{print $3}')
 # fi
