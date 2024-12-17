@@ -1,4 +1,4 @@
-#!/bin/bash -xe
+#!/bin/bash -e
 
 printf '\033[1;32m%s\033[0m\n' "$1"
 
@@ -20,7 +20,8 @@ service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOM
 cmd="docker exec $prj_name-$service-1 ip route"
 
 if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-  multipass exec $vm_name -- 'ls'
+  #multipass exec $vm_name -- 'ls'
+  echo "$cmd" | multipass shell
 fi
 echo aaa
 echo "$route_list"
