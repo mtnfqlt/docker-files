@@ -32,7 +32,7 @@ if [ -n "$vm_ip" ]; then
   #exec_on_dvm "$cmd"
     ssh -o StrictHostKeyChecking=no \
       -o UserKnownHostsFile=/dev/null \
-      -o LogLevel=ERROR "ubuntu@$vm_ip" "docker exec $prj_name-$service-1 ip route | grep '^default via ' | awk '{print \$3}'"
+      -o LogLevel=ERROR "ubuntu@$vm_ip" "ls"
 else
   gateway=$(eval "$cmd")
 fi
