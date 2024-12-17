@@ -30,7 +30,7 @@ vm_ip=$(multipass info $vm_name --format json 2> /dev/null | jq -r ".info.$vm_na
 
 if [ -n "$vm_ip" ]; then
   #exec_on_dvm "$cmd"
-    echo ls | ssh -o StrictHostKeyChecking=no ubuntu@192.168.101.29
+    ssh -tto StrictHostKeyChecking=no ubuntu@192.168.101.29 ls
 else
   gateway=$(eval "$cmd")
 fi
