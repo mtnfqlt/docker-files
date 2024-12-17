@@ -51,12 +51,9 @@ sudo sed -i.bak '/ $domain /d' ./hosts
 sudo echo $gateway $domain \# Added by $cur_script at $(date +%F' '%T) >> ./hosts
 grep ' $domain ' ./hosts"
 
-  printf '\033[1;32m%s\033[0m\n' "$vm_name"
-
-  if [ "$vm_ip" != 'null' ]; then
+  if [[ "$vm_ip" =~ ^[0-9] ]]; then
+    printf '\033[1;32m%s\033[0m\n' "$vm_name"
     exec_on_dvm "$cmd"
-  else
-    printf '\033[1;33m%s not running\033[0m\n' "$vm_name"
   fi
 
   printf '\033[1;32m%s\033[0m\n' "$(hostname)"
