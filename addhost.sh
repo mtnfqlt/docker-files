@@ -20,7 +20,7 @@ service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOM
 cmd="docker exec $prj_name-$service-1 ip route"
 
 if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-  bash -c "multipass exec $vm_name -- 'ls'"
+  exec "multipass exec $vm_name -- 'ls'"
 fi
 echo aaa
 echo "$route_list"
