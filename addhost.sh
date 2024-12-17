@@ -39,7 +39,7 @@ grep ' $domain ' ./hosts"
 
   if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
     echo
-    echo "sudo eval \"$cmd\"" | multipass shell
+    echo "sudo bash -ec \"$cmd\"" | multipass shell
   fi
 else
   exit 1
