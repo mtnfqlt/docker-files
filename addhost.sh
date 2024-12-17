@@ -36,26 +36,16 @@ fi
 
 domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
 
-echo "$gateway"
-echo "$domain"
+if [ -n "$gateway" ] && [ -n "$domain" ]; then
+  cmd="
+cd /etc
+sed -i.bak '/ $domain /d' ./hosts
+echo $gateway $domain \#added by $cur_script >> ./hosts
+hostname
+grep ' $domain ' ./hosts"
 
-echo aaa
-
-# if [ -n "$gateway" ] && [ -n "$domain" ]; then
-#   cmd="
-# set -e
-# cd /etc
-# sed -i.bak '/ $domain /d' ./hosts
-# echo $gateway $domain \#added by $cur_script >> ./hosts
-# hostname
-# grep ' $domain ' ./hosts"
-
-#   sudo bash -ec "$cmd"
-
-#   if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-#     echo
-#     echo "sudo bash -ec \"$cmd\"" | multipass shell
-#   fi
-# else
-#   exit 1
-# fi
+  eval sudo "$cmd"
+#  exec_on_dvm "$cmd"
+else
+  exit 1
+fi
