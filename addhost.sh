@@ -25,27 +25,30 @@ cd "$work_dir"
 prj_name=$(yq -r '.name' $prj_config)
 if [ -z "$prj_name" ]; then prj_name=$(basename "$$work_dir"); fi
 service=$(yq -r '.services | to_entries[] | select(.value.environment | has("DOMAIN")) | .key' $prj_config)
-cmd="docker exec $prj_name-$service-1 ip route | grep '^default via ' | awk '{print \$3}'"
-vm_ip=$(multipass info $vm_name --format json 2> /dev/null | jq -r ".info.$vm_name.ipv4[0]")
 
-if [ -n "$vm_ip" ]; then
-  gateway=$(exec_on_dvm "$cmd")
-else
-  gateway=$(eval "$cmd")
-fi
+cmd='docker ps'
 
-domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
+# cmd="docker exec $prj_name-$service-1 ip route | grep '^default via ' | awk '{print \$3}'"
+# vm_ip=$(multipass info $vm_name --format json 2> /dev/null | jq -r ".info.$vm_name.ipv4[0]")
 
-if [ -n "$gateway" ] && [ -n "$domain" ]; then
-  cmd="
-cd /etc
-sudo sed -i.bak '/ $domain /d' ./hosts
-sudo echo $gateway $domain \#added by $cur_script >> ./hosts
-hostname
-grep ' $domain ' ./hosts"
+# if [ -n "$vm_ip" ]; then
+#   gateway=$(exec_on_dvm "$cmd")
+# else
+#   gateway=$(eval "$cmd")
+# fi
 
-  sudo bash -c "$cmd"
-  #exec_on_dvm "$cmd"
-else
-  exit 1
-fi
+# domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN' $prj_config)
+
+# if [ -n "$gateway" ] && [ -n "$domain" ]; then
+#   cmd="
+# cd /etc
+# sudo sed -i.bak '/ $domain /d' ./hosts
+# sudo echo $gateway $domain \#added by $cur_script >> ./hosts
+# hostname
+# grep ' $domain ' ./hosts"
+
+#   sudo bash -c "$cmd"
+#   #exec_on_dvm "$cmd"
+# else
+#   exit 1
+# fi
