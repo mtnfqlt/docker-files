@@ -29,7 +29,7 @@ domain=$(yq -r '.services[] | select(.environment.DOMAIN) | .environment.DOMAIN'
 if [ -n "$gateway" ] && [ -n "$domain" ]; then
   cmd="
 set -e
-cd /etcs
+cd /etc
 sed -i.bak '/ $domain /d' ./hosts
 echo $gateway $domain \#added by $cur_script >> ./hosts
 hostname
