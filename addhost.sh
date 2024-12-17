@@ -37,10 +37,10 @@ grep ' $domain ' ./hosts"
 
   sudo bash -ec "$cmd"
 
-  if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
-    echo
-    multipass exec $vm_name -- sudo bash -ec "$cmd"
-  fi
+  # if multipass info $vm_name 2> /dev/null | grep -q '^State:\s*Running$'; then
+  #   echo
+  #   multipass exec $vm_name -- sudo bash -ec "$cmd"
+  # fi
 else
   exit 1
 fi
