@@ -29,7 +29,9 @@ cmd="docker exec $prj_name-$service-1 ip route"
 vm_ip=$(multipass info $vm_name --format json 2> /dev/null | jq -r ".info.$vm_name.ipv4[0]")
 
 if [[ "$vm_ip" =~ ^[1-9] ]]; then
-  route_list=$(exec_on_dvm "$cmd" || true)
+  set +e
+  route_list=$(exec_on_dvm "$cmd")
+  set -e
 else
   printf '\033[1;33mThe virtual machine (%s) is not running on your computer.\033[0m\n' "$vm_name"
 
