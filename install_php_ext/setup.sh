@@ -7,5 +7,12 @@ source ./include.src
 
 # shellcheck disable=SC2154
 for ext in $list; do
-  eval docker-php-ext-install "$ext"
+  name=$(echo "$ext" | cut -d- -f1)
+  version=$(echo "$ext" | cut -d- -f2)
+
+  if [ -z "$version" ]; then
+    docker-php-ext-install "$name"
+  else
+    pecl install "$ext"
+  fi
 done
