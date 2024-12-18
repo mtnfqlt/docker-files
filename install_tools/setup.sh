@@ -13,5 +13,6 @@ eval apt-get install -y --no-install-recommends "$list" \
   iputils-ping \
   mc \
   procps \
+  telnet \
   unzip \
   wget
