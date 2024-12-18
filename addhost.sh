@@ -34,11 +34,13 @@ else
   printf '\033[1;33mThe virtual machine (%s) is not running on your computer.\033[0m\n' "$vm_name"
 fi
 
-if [ -z "$route_list" ] && docker > /dev/null 2>&1; then
-  route_list=$(eval "$cmd")
-else
-  printf '\033[1;31mDocker was not found on your computer!\033[0m\n'
-  exit 1
+if [ -z "$route_list" ]; then
+  if docker > /dev/null 2>&1; then
+    route_list=$(eval "$cmd")
+  else
+    printf '\033[1;31mDocker was not found on your computer!\033[0m\n'
+    exit 1
+  fi
 fi
 
 gateway=$(echo "$route_list" | grep '^default via ' | awk '{print $3}')
