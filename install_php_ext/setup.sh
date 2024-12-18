@@ -9,7 +9,7 @@ source ./include.src
 for ext in $list; do
   name=$(echo "$ext" | cut -d- -f1)
   version=$(echo "$ext" | cut -d- -f2)
-
+  echo "---------------------------------$version"
   if [ -z "$version" ]; then
     docker-php-ext-install "$name"
   else
