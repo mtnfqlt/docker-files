@@ -27,8 +27,6 @@ send() {
 print_php_ext_status() {
   local ext=$1
   local cmd="
-set -e
-
 if php -i | grep -q ^$ext.; then
   status='enabled'
 else
